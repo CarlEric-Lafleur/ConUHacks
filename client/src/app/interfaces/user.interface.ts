@@ -15,10 +15,3 @@ export interface AssistantInfo {
     email: string;
     phoneNumber: string;
 }
-
-export interface UserBaseInfo {
-    _id: string;
-    email: string;
-    displayName: string;
-    phoneNumber: string;
-}

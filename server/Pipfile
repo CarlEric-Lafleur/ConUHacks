@@ -10,6 +10,9 @@ pillow = "*"
 easyocr = "*"
 groq = "*"
 dotenv = "*"
+python-dotenv = "*"
+pymongo = "*"
+motor = "*"
 
 [dev-packages]
 

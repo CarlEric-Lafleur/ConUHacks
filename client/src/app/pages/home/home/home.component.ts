@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DrugType, Prescription, Schedule } from '../../../interfaces/prescription.interface';
 
 @Component({
   selector: 'app-home',
@@ -9,8 +10,23 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
   medicines = [
-    { name: 'Medicine 1' },
-    { name: 'Medicine 2' },
-    { name: 'Medicine 3' },
+    {
+      drugName: 'Medicine 1',
+      startDate:'1733082512',
+      schedule:[
+        {time:1738960106 } as Schedule,
+        {time:1740833066} as Schedule
+      ],
+      type: DrugType.PILL
+    } as Prescription,
+    {
+      drugName: 'Medicine 2',
+      startDate:'1733082512',
+      schedule:[
+        {time:1738960106 } as Schedule,
+        {time:1740833066} as Schedule
+      ],
+      type: DrugType.PILL
+    } as Prescription,
   ];
 }

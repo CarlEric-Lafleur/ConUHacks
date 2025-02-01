@@ -6,6 +6,16 @@ import { Injectable } from '@angular/core';
 export class DateService {
   constructor() {}
 
+  isSoon(date: number): boolean {
+    const oneDay= 24*60*60*1000;
+    return (Date.now() - date < oneDay) ? true : false;
+  }
+
+  MMDDformat(epochDate:number): string{
+        const date = new Date(epochDate)
+        return `${String(date.getDay()).padStart(2,'0')}-${String(date.getMonth() + 1).padStart(2, '0')}`
+  }
+
   getDayText(date: Date): string {
     const inputDate = new Date(date);
     const today = new Date();
