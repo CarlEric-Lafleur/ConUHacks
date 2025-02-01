@@ -47,6 +47,7 @@ import { HttpCommunicationService } from './services/http-communication/http-com
 import { NotificationService } from './services/notification/notification.service';
 import { UserCommunicationService } from './services/user-communication/user-communication.service';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { HeaderComponent } from './components/header/header.component';
 
 const modules = [
   MatMenuModule,
@@ -81,7 +82,7 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, AuthPageComponent, MedicineCardComponent, NotificationComponent, FirstConnectionComponent, LoginComponent, HomeComponent],
+  declarations: [AppComponent, AuthPageComponent, MedicineCardComponent, NotificationComponent, FirstConnectionComponent, LoginComponent, HomeComponent, HeaderComponent],
   imports: [
     ...modules,  
     BrowserModule,

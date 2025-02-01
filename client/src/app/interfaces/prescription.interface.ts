@@ -10,7 +10,7 @@ export interface Prescription {
     endDate: string;
     instructions: string;
     schedule: Schedule[];
-    type?: DrugType
+    type: DrugType
 }
 
 export enum DrugType{
@@ -21,7 +21,7 @@ export enum DrugType{
 
 export interface Schedule {
     day: Day;
-    time: number;
+    time: string;
 }
 
 export interface Frequency {
