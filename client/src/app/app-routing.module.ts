@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppPages } from './enums/app-pages.enum';
 import { AuthPageComponent } from './auth/auth-page/auth-page.component';
-import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home/home.component';
 
 const routes: Routes = [
