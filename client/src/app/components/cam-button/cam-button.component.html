@@ -1,0 +1,7 @@
+<webcam [height]="500" [width]="500" *ngIf="showWebcam"
+    (imageCapture)="handleImage($event)"
+    [trigger]="triggerObservable"
+    >
+</webcam>
+
+<div (click)="toggleCam()">Autocapture</div>

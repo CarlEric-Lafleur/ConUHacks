@@ -31,6 +31,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormComponent } from './pages/form/form.component';
+import { CamButtonComponent } from './components/cam-button/cam-button.component';
+import { WebcamModule } from 'ngx-webcam';
 
 const modules = [
   MatMenuModule,
@@ -61,10 +63,11 @@ const modules = [
   MatDialogModule,
   MatMenuModule,
   MatChipsModule,
+  WebcamModule,
 ];
 
 @NgModule({
-  declarations: [AppComponent, FormComponent],
+  declarations: [AppComponent, FormComponent, CamButtonComponent],
   imports: [
     ...modules,
     BrowserModule,
