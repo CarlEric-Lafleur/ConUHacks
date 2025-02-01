@@ -1,6 +1,7 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { WebcamImage } from 'ngx-webcam';
 import { Subject, Observable } from 'rxjs';
+import { HttpCommunicationService } from '../../services/http-communication/http-communication.service';
 
 declare var cv: any;
 
@@ -22,7 +23,10 @@ export class CamButtonComponent {
     this.showWebcam = !this.showWebcam;
   }
 
-  constructor(private renderer: Renderer2) {}
+  constructor(
+    private renderer: Renderer2,
+    private communicationService: HttpCommunicationService
+  ) {}
 
   isProcessing: boolean = false;
   isFound: boolean = false;
@@ -74,13 +78,14 @@ export class CamButtonComponent {
 
     let image = canvas.toDataURL('image/jpeg');
 
-    let canvasElement = document.createElement('canvas');
-    canvasElement.width = canvas.width;
-    canvasElement.height = canvas.height;
-    cv.imshow(canvasElement, foundRect[0]);
-    let image1 = canvasElement.toDataURL('image/jpeg');
-    cv.imshow(canvasElement, foundRect[1]);
-    let image2 = canvasElement.toDataURL('image/jpeg');
+    foundRect.sort((a: any, b: any) => b.area - a.area);
+
+    console.log(image, foundRect.slice(0, 2));
+    const formData = new FormData();
+    formData.append('images', image);
+    formData.append('images', foundRect[0].imageUrl);
+    formData.append('images', foundRect[1].imageUrl);
+    this.communicationService.basicPost('/posology', formData);
   }
 
   processVideo(src: any, dst: any, cap: any) {
@@ -133,19 +138,39 @@ export class CamButtonComponent {
         let approx_vector = new cv.MatVector();
         approx_vector.push_back(approx);
 
-        if (
-          (approx.rows === 4 || approx.rows === 3) &&
-          cv.contourArea(approx) > 1000
-        ) {
-          foundRect.push(JSON.parse(JSON.stringify(approx)));
+        const area = cv.contourArea(approx);
+
+        if (approx.rows === 4 && area > 1500) {
           let rect = cv.boundingRect(approx); // Get bounding box
+          // Extract the rectangular region
+          let roi = src.roi(rect);
+
+          let canvas = document.createElement('canvas');
+          cv.imshow(canvas, roi); // Draw the Mat onto the canvas
+
+          // Step 3: Convert Canvas to JPEG and Download
+          let imageUrl = canvas.toDataURL('image/jpeg');
+
+          // Encode the ROI as a JPEG
+          //   let imgData = new cv.Mat();
+          //   cv.imencode('.jpg', roi, imgData);
+
+          //   // Convert to Uint8Array
+          //   let byteArray = new Uint8Array(imgData.data);
+
+          //   // Create a Blob and generate a downloadable link
+          //   let blob = new Blob([byteArray], { type: 'image/jpeg' });
+
+          foundRect.push({ imageUrl, area });
+
           let color = new cv.Scalar(0, 255, 0, 255); // Green color
           let point1 = new cv.Point(rect.x, rect.y);
           let point2 = new cv.Point(rect.x + rect.width, rect.y + rect.height);
           cv.rectangle(src, point1, point2, color, 2); // Draw rectangle
           count++;
+        } else {
+          approx.delete();
         }
-        approx.delete();
       }
       if (count >= 2) {
         this.isFound = true;
