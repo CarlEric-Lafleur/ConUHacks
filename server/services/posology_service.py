@@ -78,12 +78,11 @@ class PosologyService:
         self.bot = groq()
 
     def getJson(self, imgs):
-
         # open camera and get images
         # setup services
-
+        print([img.size for img in imgs])
         # get images in order (full picture at index 0)
-        sorted_imgs = sorted(imgs, key=lambda x: -len(x))
+        sorted_imgs = sorted(imgs, key=lambda x: -x.size[0])  ##PTETRE CHANGER CA
 
         # identify text sections
         posologyTextBox = self.reader.read(sorted_imgs[1], 0)
