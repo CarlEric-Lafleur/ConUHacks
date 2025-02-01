@@ -2,7 +2,7 @@
     <medicine-card [medicine]="medicine"></medicine-card>
 </div> -->
 <div class="container">
-  @for (medicine of medicines; track medicine.name) {
+  @for (medicine of medicines; track medicine.drugName) {
   <app-medicine-card [medicine]="medicine" class="card"></app-medicine-card>
   }
 </div>
