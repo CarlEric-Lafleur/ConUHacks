@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 requests = "*"
+python-dotenv = "*"
+pymongo = "*"
+motor = "*"
 
 [dev-packages]
 

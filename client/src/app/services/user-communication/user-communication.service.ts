@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { USER_API_PATH } from '../../constants/communication.service.constants';
 import { HttpCommunicationService } from '../http-communication/http-communication.service';
-import { AppUser, UserBaseInfo } from '../../interfaces/user.interface';
+import { AppUser } from '../../interfaces/user.interface';
 
 @Injectable({
     providedIn: 'root',
