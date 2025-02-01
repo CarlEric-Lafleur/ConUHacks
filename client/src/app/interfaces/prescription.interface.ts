@@ -10,12 +10,18 @@ export interface Prescription {
     endDate: string;
     instructions: string;
     schedule: Schedule[];
+    type?: DrugType
+}
 
+export enum DrugType{
+  PILL='pill',
+  PATCH='patch',
+  OTHER='medication',
 }
 
 export interface Schedule {
     day: Day;
-    time: string;
+    time: number;
 }
 
 export interface Frequency {

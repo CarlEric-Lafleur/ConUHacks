@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DateService } from '../../../services/date/date.service';
+import { DrugType, Prescription } from '../../../interfaces/prescription.interface';
 
 @Component({
   selector: 'app-medicine-card',
@@ -10,21 +11,37 @@ import { DateService } from '../../../services/date/date.service';
 })
 export class MedicineCardComponent {
   constructor(private dateService: DateService) {}
-  @Input() medicine: any;
+
+  @Input() medicine!: Prescription;
+  public dateText!: string;
+
+  private icon!: string;
 
   ngOnInit() {
-    console.log(this.dateService.getFormattedDate(new Date())); // Today
-    console.log(
-      this.dateService.getFormattedDate(new Date(Date.now() - 86400000))
-    ); // Yesterday
-    console.log(
-      this.dateService.getFormattedDate(new Date(Date.now() + 86400000))
-    ); // Tomorrow
-    console.log(
-      this.dateService.getFormattedDate(new Date(Date.now() - 3 * 86400000))
-    ); // 3 days ago
-    console.log(
-      this.dateService.getFormattedDate(new Date(Date.now() + 5 * 86400000))
-    ); // In 5 days
+    this.medicine.schedule.sort((a,b)=>b.time-a.time)
+    const nextConsumeDateEpoch = this.medicine.schedule[0].time
+    this.dateText = this.dateService.isSoon(nextConsumeDateEpoch)?
+      `Take in ${(Date.now() - nextConsumeDateEpoch) / (60*60*1000)} hours` :  this.dateService.MMDDformat(nextConsumeDateEpoch)
+    this.medicine.type ? this.setIcon(this.medicine.type) : null
   }
+
+  public getIcon(): string {
+    console.log(this.icon)
+    return this.icon;
+  }
+
+  private setIcon(icon: DrugType){
+    switch(icon){
+      case DrugType.PILL:
+          this.icon = "pill"
+          break;
+      case DrugType.PATCH:
+          this.icon = "healing";
+          break;
+      case DrugType.OTHER:
+          this.icon = "medical_services"
+        break;
+    }
+  }
+
 }

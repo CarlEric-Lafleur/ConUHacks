@@ -1,10 +1,14 @@
-<mat-card appearance="raised" class="card-container">
+ <mat-card class="box">
   <mat-card-header>
-    <mat-card-title>{{ medicine.name }}</mat-card-title></mat-card-header
-  >
-  <mat-card-content></mat-card-content>
-
-  <mat-card-actions [align]="'end'">
-    <button mat-flat-button>Take medicine</button></mat-card-actions
-  >
+  <mat-card-title-group>
+    <p>{{medicine.drugName}}</p>
+    <mat-icon>{{getIcon}}</mat-icon> <!--why not showing--> 
+  </mat-card-title-group>
+  </mat-card-header>
+    <mat-card-actions>
+    <button mat-flat-button class="box">Take it</button>
+  </mat-card-actions>
+  <mat-chip-set>
+    <mat-chip>{{dateText}}</mat-chip>
+  </mat-chip-set>
 </mat-card>

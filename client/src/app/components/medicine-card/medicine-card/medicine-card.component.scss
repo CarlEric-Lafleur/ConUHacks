@@ -1,3 +1,9 @@
-.card-container {
+.box {
   width: 100%;
+  padding: 5%;
+}
+
+.col{
+  display: flex;
+  flex-direction: row;
 }
