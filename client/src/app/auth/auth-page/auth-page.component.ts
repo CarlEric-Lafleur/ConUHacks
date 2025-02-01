@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { INVALID_WORD, MAX_USERNAME_LENGTH, MIN_USERNAME_LENGTH, VALID_CHARACTERS } from '@app/constants/username-contraints.constants';
-import { UsernameErrorMessage } from '@app/enums/username-error-message.enum';
-import { UserService } from '@app/services/user/user.service';
+import { MAX_USERNAME_LENGTH, MIN_USERNAME_LENGTH, VALID_CHARACTERS } from '../../constants/username-contraints.constants';
+import { UsernameErrorMessage } from '../../enums/username-error-message.enum';
+import { UserService } from '../../services/user/user.service';
 @Component({
     selector: 'app-auth-page',
     templateUrl: './auth-page.component.html',
