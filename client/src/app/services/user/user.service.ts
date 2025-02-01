@@ -7,7 +7,7 @@ import { NotificationType } from '../../interfaces/notification-content';
 import { FirebaseService } from '../firebase/firebase.service';
 import { NotificationService } from '../notification/notification.service';
 import { UserCommunicationService } from '../user-communication/user-communication.service';
-import { AppUser, UserBaseInfo } from '../../interfaces/user.interface';
+import { AppUser } from '../../interfaces/user.interface';
 import { User } from 'firebase/auth';
 import { BehaviorSubject } from 'rxjs';
 
@@ -27,13 +27,7 @@ export class UserService {
     ) {}
 
     signIn(email: string, password: string) {
-        this.userCommunicationService.isUserAlreadyConnected(email).subscribe((isConnected: boolean) => {
-            if (isConnected) {
-                this.showErrorNotification("L'utilisateur utilisant cet email est déjà connecté sur un autre appareil");
-            } else {
-                this.signInWithFirebase(email, password);
-            }
-        });
+        this.signInWithFirebase(email, password);
     }
 
     signOut() {
@@ -44,16 +38,17 @@ export class UserService {
         });
     }
 
-    createAccount(email: string, username: string, password: string) {
-        this.firebaseService
-            .createUser(email, password)
-            .then((user: User) => {
-                this.handleNewAccountSuccess(user, username);
-            })
-            .catch((error) => {
-                const errorMessage: string = AUTHENTICATION_ERROR_MESSAGE.get(error.code) || 'Erreur inconnue';
-                this.showErrorNotification(errorMessage);
-            });
+    createAccount(newUser: AppUser, password: string) {
+      this.firebaseService
+          .createUser(newUser.email, password)
+          .then((user: User) => {
+            newUser._id = user.uid;
+              this.handleNewAccountSuccess(newUser);
+          })
+          .catch((error) => {
+              const errorMessage: string = AUTHENTICATION_ERROR_MESSAGE.get(error.code) || 'Erreur inconnue';
+              this.showErrorNotification(errorMessage);
+          });
     }
 
     changeSelectedAvatar(avatarUrl: string) {
@@ -111,12 +106,12 @@ export class UserService {
         });
     }
 
-    private handleNewAccountSuccess(user: User, username: string) {
+    private handleNewAccountSuccess(user: AppUser) {
         if (!user.email) {
             this.showErrorNotification("L'email n'a pas pu être validé. Veuillez reessayer");
             return;
         }
-        this.userCommunicationService.createUser(this.setUserBaseInfo(user.email, username, user.uid)).subscribe((userData: AppUser) => {
+        this.userCommunicationService.createUser(user).subscribe((userData: AppUser) => {
             this.user.next(userData);
             this.showSuccessNotification(`Compte créé avec succès! Bienvenue ${user.email}!`);
             this.router.navigate([AppRoutes.Home]);
@@ -129,15 +124,6 @@ export class UserService {
             type: NotificationType.Success,
             durationMs: WARNING_NOTIFICATION_DURATION,
         });
-    }
-
-    private setUserBaseInfo(email: string, username: string, userId: string): UserBaseInfo {
-        return {
-            _id: userId,
-            email,
-            displayName: username,
-            phoneNumber: '',
-        };
     }
 
 }

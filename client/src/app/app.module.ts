@@ -7,7 +7,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideFirestore } from '@angular/fire/firestore';
-import { provideRouter } from '@angular/router';
+import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore } from '@angular/fire/firestore';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgModule } from '@angular/core';
@@ -36,6 +36,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AuthPageComponent } from './auth/auth-page/auth-page.component';
 import { environment } from './environments/environment';
 import { NotificationComponent } from './notification/notification.component';
+import { FirstConnectionComponent } from './auth/auth-page/first-connection/first-connection.component';
+import { LoginComponent } from './auth/auth-page/login/login.component';
+import { FormsModule } from '@angular/forms';
+import { UserService } from './services/user/user.service';
+import { FirebaseService } from './services/firebase/firebase.service';
+import { HttpCommunicationService } from './services/http-communication/http-communication.service';
+import { NotificationService } from './services/notification/notification.service';
+import { UserCommunicationService } from './services/user-communication/user-communication.service';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 
 const modules = [
   MatMenuModule,
@@ -66,12 +75,13 @@ const modules = [
   MatDialogModule,
   MatMenuModule,
   MatChipsModule,
+  FormsModule
 ];
 
 @NgModule({
-  declarations: [AppComponent, AuthPageComponent, NotificationComponent],
+  declarations: [AppComponent, AuthPageComponent, NotificationComponent, FirstConnectionComponent, LoginComponent],
   imports: [
-    ...modules,
+    ...modules,  
     BrowserModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
@@ -84,7 +94,9 @@ const modules = [
   ],
   providers: [provideAnimationsAsync(),
       provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-      provideFirestore(() => getFirestore())
+      provideFirestore(() => getFirestore()),
+      provideAuth(() => getAuth()),
+      provideHttpClient(),
   ],
   bootstrap: [AppComponent],
 })

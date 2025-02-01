@@ -13,8 +13,8 @@ export class UserCommunicationService {
         return this.communicationService.basicGet<AppUser>(`${USER_API_PATH}/${id}`);
     }
 
-    createUser(user: UserBaseInfo) {
-        return this.communicationService.basicPost<Partial<AppUser>, AppUser>(USER_API_PATH, user);
+    createUser(user: AppUser) {
+        return this.communicationService.basicPost<AppUser, AppUser>(USER_API_PATH, user);
     }
 
     joinChatById(userId: string, chatId: string) {

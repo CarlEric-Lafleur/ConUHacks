@@ -4,13 +4,17 @@ export interface AppUser {
     _id: string;
     email: string;
     displayName: string;
-    photoURL: string;
     phoneNumber: string;
-    isProfileComplete: boolean;
     prescriptions: Prescription[];
+    assistMode: boolean;
+    assistantInfo?: AssistantInfo;
 }
 
-
+export interface AssistantInfo {
+    name: string;
+    email: string;
+    phoneNumber: string;
+}
 
 export interface UserBaseInfo {
     _id: string;
