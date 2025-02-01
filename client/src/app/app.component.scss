@@ -1,8 +1,5 @@
-.content {
-  padding: 16px;
-}
-
-mat-toolbar {
-  display: flex;
-  justify-content: space-between;
+.header {
+  top: 0;
+  width: 100%;
+  position: sticky;
 }

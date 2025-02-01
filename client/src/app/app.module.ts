@@ -33,6 +33,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { HomeComponent } from './pages/home/home/home.component';
+import { MedicineCardComponent } from './components/medicine-card/medicine-card/medicine-card.component';
 import { AuthPageComponent } from './auth/auth-page/auth-page.component';
 import { environment } from './environments/environment';
 import { NotificationComponent } from './notification/notification.component';
@@ -79,7 +81,7 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, AuthPageComponent, NotificationComponent, FirstConnectionComponent, LoginComponent],
+  declarations: [AppComponent, AuthPageComponent, MedicineCardComponent, NotificationComponent, FirstConnectionComponent, LoginComponent, HomeComponent],
   imports: [
     ...modules,  
     BrowserModule,
@@ -90,7 +92,7 @@ const modules = [
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
-    
+
   ],
   providers: [provideAnimationsAsync(),
       provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
