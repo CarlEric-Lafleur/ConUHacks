@@ -5,6 +5,11 @@ name = "pypi"
 
 [packages]
 requests = "*"
+opencv-python = "*"
+pillow = "*"
+easyocr = "*"
+groq = "*"
+dotenv = "*"
 
 [dev-packages]
 
