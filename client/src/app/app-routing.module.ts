@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FormComponent } from './pages/form/form.component';
 import { AppPages } from './enums/app-pages.enum';
 import { AuthPageComponent } from './auth/auth-page/auth-page.component';
 import { HomeComponent } from './pages/home/home/home.component';
@@ -8,7 +9,8 @@ const routes: Routes = [
   { path: '', redirectTo: AppPages.Home, pathMatch: 'full' },
   { path: AppPages.Home, component: HomeComponent },
   { path: AppPages.Login, component: AuthPageComponent },
-  { path: '**', redirectTo: AppPages.Home }
+  { path: 'form', component: FormComponent },
+  { path: '**', redirectTo: AppPages.Home },
 ];
 
 @NgModule({

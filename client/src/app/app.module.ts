@@ -47,6 +47,9 @@ import { HttpCommunicationService } from './services/http-communication/http-com
 import { NotificationService } from './services/notification/notification.service';
 import { UserCommunicationService } from './services/user-communication/user-communication.service';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { FormComponent } from './pages/form/form.component';
+import { CamButtonComponent } from './components/cam-button/cam-button.component';
+import { WebcamModule } from 'ngx-webcam';
 import { HeaderComponent } from './components/header/header.component';
 
 const modules = [
@@ -78,13 +81,24 @@ const modules = [
   MatDialogModule,
   MatMenuModule,
   MatChipsModule,
-  FormsModule
+  WebcamModule,
+  FormsModule,
 ];
 
 @NgModule({
-  declarations: [AppComponent, AuthPageComponent, MedicineCardComponent, NotificationComponent, FirstConnectionComponent, LoginComponent, HomeComponent, HeaderComponent],
+  declarations: [
+    AppComponent,
+    FormComponent,
+    CamButtonComponent,
+    AuthPageComponent,
+    MedicineCardComponent,
+    NotificationComponent,
+    FirstConnectionComponent,
+    LoginComponent,
+    HomeComponent,
+  , HeaderComponent],
   imports: [
-    ...modules,  
+    ...modules,
     BrowserModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
@@ -93,13 +107,13 @@ const modules = [
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
-
   ],
-  providers: [provideAnimationsAsync(),
-      provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-      provideFirestore(() => getFirestore()),
-      provideAuth(() => getAuth()),
-      provideHttpClient(),
+  providers: [
+    provideAnimationsAsync(),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
+    provideHttpClient(),
   ],
   bootstrap: [AppComponent],
 })
