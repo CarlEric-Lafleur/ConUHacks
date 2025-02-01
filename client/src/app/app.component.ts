@@ -3,9 +3,14 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
   standalone: false,
-  styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'client';
+  title = 'My Angular 19 App';
+  isMenuOpen = false;
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
 }
