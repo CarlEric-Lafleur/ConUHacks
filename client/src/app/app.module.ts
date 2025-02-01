@@ -30,6 +30,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { FormComponent } from './pages/form/form.component';
 
 const modules = [
   MatMenuModule,
@@ -63,7 +64,7 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, FormComponent],
   imports: [
     ...modules,
     BrowserModule,
