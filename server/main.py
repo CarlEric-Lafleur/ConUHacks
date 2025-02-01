@@ -4,6 +4,7 @@ from userDatabaseService import *
 
 app = FastAPI()
 
+
 @app.get("/")
 def read_root():
     response = test_db_connection()
