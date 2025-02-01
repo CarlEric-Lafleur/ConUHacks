@@ -7,10 +7,4 @@ import { Component, Renderer2 } from '@angular/core';
   standalone: false,
 })
 export class AppComponent {
-  title = 'My Angular 19 App';
-  isMenuOpen = false;
-
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-  }
 }

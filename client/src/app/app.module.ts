@@ -5,7 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideFirestore } from '@angular/fire/firestore';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getFirestore } from '@angular/fire/firestore';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgModule } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -30,6 +33,20 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { HomeComponent } from './pages/home/home/home.component';
+import { MedicineCardComponent } from './components/medicine-card/medicine-card/medicine-card.component';
+import { AuthPageComponent } from './auth/auth-page/auth-page.component';
+import { environment } from './environments/environment';
+import { NotificationComponent } from './notification/notification.component';
+import { FirstConnectionComponent } from './auth/auth-page/first-connection/first-connection.component';
+import { LoginComponent } from './auth/auth-page/login/login.component';
+import { FormsModule } from '@angular/forms';
+import { UserService } from './services/user/user.service';
+import { FirebaseService } from './services/firebase/firebase.service';
+import { HttpCommunicationService } from './services/http-communication/http-communication.service';
+import { NotificationService } from './services/notification/notification.service';
+import { UserCommunicationService } from './services/user-communication/user-communication.service';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { FormComponent } from './pages/form/form.component';
 import { CamButtonComponent } from './components/cam-button/cam-button.component';
 import { WebcamModule } from 'ngx-webcam';
@@ -64,10 +81,21 @@ const modules = [
   MatMenuModule,
   MatChipsModule,
   WebcamModule,
+  FormsModule,
 ];
 
 @NgModule({
-  declarations: [AppComponent, FormComponent, CamButtonComponent],
+  declarations: [
+    AppComponent,
+    FormComponent,
+    CamButtonComponent,
+    AuthPageComponent,
+    MedicineCardComponent,
+    NotificationComponent,
+    FirstConnectionComponent,
+    LoginComponent,
+    HomeComponent,
+  ],
   imports: [
     ...modules,
     BrowserModule,
@@ -79,7 +107,13 @@ const modules = [
       registrationStrategy: 'registerWhenStable:30000',
     }),
   ],
-  providers: [provideAnimationsAsync()],
+  providers: [
+    provideAnimationsAsync(),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
+    provideHttpClient(),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

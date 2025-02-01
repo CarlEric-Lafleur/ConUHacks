@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormComponent } from './pages/form/form.component';
-import { AppComponent } from './app.component';
+import { AppPages } from './enums/app-pages.enum';
+import { AuthPageComponent } from './auth/auth-page/auth-page.component';
+import { HomeComponent } from './pages/home/home/home.component';
 
 const routes: Routes = [
-  { path: '', component: AppComponent },
-  {path: 'form', component: FormComponent},
-  { path: '**', redirectTo: '', pathMatch: 'full' },
+  { path: '', redirectTo: AppPages.Home, pathMatch: 'full' },
+  { path: AppPages.Home, component: HomeComponent },
+  { path: AppPages.Login, component: AuthPageComponent },
+  { path: 'form', component: FormComponent },
+  { path: '**', redirectTo: AppPages.Home },
 ];
 
 @NgModule({

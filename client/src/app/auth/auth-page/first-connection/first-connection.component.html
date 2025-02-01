@@ -1,0 +1,45 @@
+<form (ngSubmit)="createAccount()">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="user.email" name="email" required />
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="user.displayName" name="displayName" required />
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Phone Number</mat-label>
+      <input matInput [(ngModel)]="user.phoneNumber" name="phoneNumber" required />
+    </mat-form-field>
+  
+    <mat-slide-toggle [(ngModel)]="user.assistMode" name="assistMode" (change)="toggleAssistMode()">
+      Enable Assist Mode
+    </mat-slide-toggle>
+  
+    <!-- <div *ngIf="user.assistMode">
+      <h3>Assistant Information</h3>
+      <mat-form-field>
+        <mat-label>Assistant Name</mat-label>
+        <input matInput [(ngModel)]="user.assistantInfo.name" name="assistantName" required />
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Assistant Email</mat-label>
+        <input matInput [(ngModel)]="user.assistantInfo.email" name="assistantEmail" required />
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Assistant Phone Number</mat-label>
+        <input matInput [(ngModel)]="user.assistantInfo.phoneNumber" name="assistantPhoneNumber" required />
+      </mat-form-field>
+    </div> -->
+  
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput type="password" [(ngModel)]="password" name="password" required />
+    </mat-form-field>
+  
+    <button mat-raised-button color="primary" type="submit">Create Account</button>
+  </form>

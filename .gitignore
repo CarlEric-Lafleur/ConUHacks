@@ -9,6 +9,9 @@ tmp/
 app/**/*.js
 app/**/*.js.map
 
+pi
+Pipfile.lock
+
 # dependencies
 node_modules/
 bower_components/
