@@ -71,7 +71,7 @@ const modules = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, AuthPageComponent, MedicineCardComponent, NotificationComponent],
+  declarations: [AppComponent, AuthPageComponent, MedicineCardComponent, NotificationComponent, HomeComponent],
   imports: [
     ...modules,
     BrowserModule,
