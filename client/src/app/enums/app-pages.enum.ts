@@ -4,4 +4,5 @@ export enum AppPages {
   Admin = 'admin',
   takeDrug = 'take-drug',
   Form = 'form',
+  Profile='profile',
 }

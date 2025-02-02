@@ -49,6 +49,8 @@ import { WebcamModule } from 'ngx-webcam';
 import { ChatComponent } from './components/chat/chat.component';
 import { CamComponent } from './components/cam/cam.component';
 import { FaceComponent } from './pages/face/face.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { EditableTextComponent } from './components/editable-text/editable-text.component';
 
 const modules = [
   MatMenuModule,
@@ -98,6 +100,8 @@ const modules = [
     ChatComponent,
     CamComponent,
     FaceComponent,
+    ProfileComponent,
+    EditableTextComponent,
   ],
 
   imports: [

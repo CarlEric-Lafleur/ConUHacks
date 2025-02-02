@@ -1,0 +1,28 @@
+<app-header> </app-header>
+<div class="container">
+  <p>Phone number</p> <app-editable-text [text]="phoneNumber"></app-editable-text>
+  <p>Email</p> <app-editable-text [text]="email"></app-editable-text>
+  @for (child of children; track child._id) {
+    <mat-card style="width: 60%;padding: 10px;">
+    <mat-card-header>
+      <mat-card-title>
+        {{child.displayName}}
+      </mat-card-title>
+    </mat-card-header>
+   <!-- montrer status des medocs-->
+    @for (p of child.prescriptions; track p.drugName) {
+      <p style="font-size: larger;">{{p.drugName}}:
+      @if (p.schedule.at(0)?.isTaken) {
+        <mat-icon style="color: rgb(131, 227, 131);" fontIcon="verified"></mat-icon>
+      } @else {
+        <mat-icon style="color: rgb(255, 92, 92);" fontIcon="cancel"></mat-icon>
+      }
+      </p>
+    } 
+    <mat-card-actions>
+      <button (click)="onAbandon(child.displayName)">Abandon</button>
+    </mat-card-actions>
+    </mat-card>
+  }
+
+</div>
