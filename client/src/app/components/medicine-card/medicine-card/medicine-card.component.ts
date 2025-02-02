@@ -10,6 +10,7 @@ import { UserService } from '../../../services/user/user.service';
 import { Router } from '@angular/router';
 import { AppPages } from '../../../enums/app-pages.enum';
 import { PrescriptionInfoService } from '../../../services/prescription-info.service';
+import { Role } from '../../../interfaces/user.interface';
 
 @Component({
   selector: 'app-medicine-card',
@@ -30,9 +31,24 @@ export class MedicineCardComponent {
   @Input() index!: number;
   private icon!: string;
   public timeLeft!: string;
+  subscribtion: any;
+
+  userRole: Role = Role.Assisted;
 
   ngOnInit() {
     this.prescription.type ? this.setIcon(this.prescription.type) : null;
+    this.subscribtion = this.userService.user.subscribe((user) => {
+      console.log(user);
+      this.userRole = user!.role;
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscribtion.unsubscribe();
+  }
+
+  isAssistedUser() {
+    return this.userRole === Role.Assisted;
   }
 
   getDateText() {
