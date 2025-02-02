@@ -42,6 +42,8 @@ class Frequency(BaseModel):
 class Schedule(BaseModel):
     day: Day
     time: str  # Format: "HH:MM"
+    hasBeenNotified: bool = False
+    isTaken: bool = False
 
 
 class Prescription(BaseModel):
