@@ -92,5 +92,5 @@ class PosologyService:
         bigPicture = self.reader.read(imgs[0], 0)
 
         final_object = json.loads(self.bot.getAnswer(posologyTextBox, rest, bigPicture))
-
+        print(final_object)
         return final_object
