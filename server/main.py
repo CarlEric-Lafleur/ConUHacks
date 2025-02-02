@@ -27,7 +27,6 @@ load_dotenv()
 
 @app.get("/")
 async def read_root():
-    print("Hello")
     response = await db.test_db_connection()
     return response
 
