@@ -1,5 +1,4 @@
 from database import get_user_collection, get_drug_collection
-from models import AppUser
 from bson import ObjectId
 
 async def test_db_connection():
@@ -34,7 +33,14 @@ async def update_user(user_id: str, update_data: dict):
     result = await get_user_collection().update_one(
         {"_id": ObjectId(user_id)}, {"$set": update_data}
     )
-    return result.modified_count > 0
+    return result.modified_count > 1
+
+async def push_prescription(user_id: str, prescription: dict):
+    result = await get_user_collection().update_one(
+        {"_id": ObjectId(user_id)}, {"$push": prescription}
+    )
+    return result.modified_count > 1
+
 
 async def delete_user(user_id: str):
     result = await get_user_collection().delete_one({"_id": ObjectId(user_id)})
