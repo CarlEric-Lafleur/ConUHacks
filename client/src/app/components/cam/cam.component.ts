@@ -154,7 +154,7 @@ export class CamComponent {
         }
         approx.delete();
       }
-      if (count >= 4) {
+      if (count >= 5) {
         this.isFound = true;
       }
 
