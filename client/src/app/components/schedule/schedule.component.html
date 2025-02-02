@@ -1,5 +1,11 @@
 <div class="container">
-  <mat-form-field appearance="outline" *ngIf="showDay()">
+  <mat-form-field
+    appearance="outline"
+    *ngIf="showDay()"
+    class="form-field"
+    [style.width.%]="90"
+    [style.margin-left.px]="40"
+  >
     <mat-label for="day">Day</mat-label>
     <mat-select required="true" [(ngModel)]="schedule.day" name="period">
       <mat-option *ngFor="let option of dayOptions" [value]="option">{{
@@ -7,5 +13,8 @@
       }}</mat-option>
     </mat-select>
   </mat-form-field>
-  <app-timepicker [selectedTime]="schedule.time"></app-timepicker>
+  <app-timepicker
+    [selectedTime]="schedule.time"
+    class="timepicker"
+  ></app-timepicker>
 </div>
