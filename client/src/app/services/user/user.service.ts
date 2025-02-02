@@ -10,6 +10,7 @@ import { UserCommunicationService } from '../user-communication/user-communicati
 import { AppUser, AssistantInfo, Role } from '../../interfaces/user.interface';
 import { User } from 'firebase/auth';
 import { BehaviorSubject } from 'rxjs';
+import { user } from '@angular/fire/auth';
 
 @Injectable({
     providedIn: 'root',
@@ -65,7 +66,6 @@ export class UserService {
                     assistantInfo: newAssistant,
                     role: Role.Assistant,
                 };
-                console.log("newUser", newUser);
                 this.handleNewAssistantAccountSuccess(newUser);
             })
             .catch((error) => {
@@ -98,6 +98,10 @@ export class UserService {
         });
     }
 
+    fetchHelpees(){
+      return this.userCommunicationService.fetchHelpees(this.user.getValue()?.email!)
+    }
+
     private async signInWithFirebase(email: string, password: string) {
         this.firebaseService
             .signIn(email, password)
@@ -123,7 +127,6 @@ export class UserService {
             return;
         }
         this.userCommunicationService.createUser(user).subscribe((userData: AppUser) => {
-            console.log("userData", userData);
             this.user.next(userData);
             this.signOutAssistant();
         });

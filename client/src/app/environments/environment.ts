@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
+  ServiceWorker: true,
   serverUrl: 'http://localhost:8000',
   webSocketUrl: 'localhost:3000',
   firebaseConfig: {
