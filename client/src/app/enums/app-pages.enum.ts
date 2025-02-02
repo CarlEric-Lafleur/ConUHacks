@@ -5,4 +5,5 @@ export enum AppPages {
   takeDrug = 'take-drug',
   Form = 'form',
   Profile='profile',
+  Face='face'
 }

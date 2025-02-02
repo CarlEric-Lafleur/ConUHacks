@@ -6,15 +6,16 @@ import { AuthPageComponent } from './auth/auth-page/auth-page.component';
 import { HomeComponent } from './pages/home/home/home.component';
 import { FaceComponent } from './pages/face/face.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { authGuard } from './auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: AppPages.Login, pathMatch: 'full' },
-  { path: AppPages.Home, component: HomeComponent },
+  { path: AppPages.Home, component: HomeComponent, canActivate: [authGuard]},
   { path: AppPages.Login, component: AuthPageComponent },
-  { path: AppPages.takeDrug, component: FormComponent },
-  { path: AppPages.Form, component: FormComponent },
-  { path: 'face', component: FaceComponent },
-  { path: AppPages.Profile, component: ProfileComponent },
+  { path: AppPages.takeDrug, component: FormComponent, canActivate: [authGuard] },
+  { path: AppPages.Form, component: FormComponent, canActivate: [authGuard] },
+  { path: AppPages.Face, component: FaceComponent, canActivate: [authGuard] },
+  { path: AppPages.Profile, component: ProfileComponent , canActivate: [authGuard]},
   { path: '**', redirectTo: AppPages.Login },
 ];
 
