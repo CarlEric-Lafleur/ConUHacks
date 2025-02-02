@@ -82,8 +82,9 @@ export class MedicineCardComponent {
   }
 
   takeNow() {
-    if (this.userService.user.getValue()?.assistMode) {
-      this.navigateTo(AppPages.Face);
+    if (this.userService.user.getValue()) {
+      console.log("ici")
+      this.navigateTo("face");
     } else {
       this.dateService.takeNow(this.prescription);
     }
