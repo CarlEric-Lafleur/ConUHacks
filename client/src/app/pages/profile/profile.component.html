@@ -1,5 +1,5 @@
 <app-header> </app-header>
-<div class="container">
+<!-- <div class="container">
   <p>Phone number</p>
   <app-editable-text [text]="phoneNumber"></app-editable-text>
   <p>Email</p>
@@ -11,7 +11,7 @@
         {{ child.displayName }}
       </mat-card-title>
     </mat-card-header>
-    <!-- montrer status des medocs-->
+     montrer status des medocs
     @for (p of child.prescriptions; track p.drugName) {
     <p style="font-size: larger">
       {{ p.drugName }}: @if (p.schedule.at(0)?.isTaken) {
@@ -29,4 +29,16 @@
     </mat-card-actions>
   </mat-card>
   }
-</div>
+</div> -->
+
+<!-- <div class="form-container">
+    <mat-form-field class="form-field">
+      <mat-label>Drug name</mat-label>
+      <input
+        matInput
+        [(ngModel)]="prescription.drugName"
+        type="string"
+        required
+        [pattern]="textNotNullOrWhitespacePattern"
+      />
+    </mat-form-field> -->
