@@ -31,8 +31,10 @@ Je suis en train de lire une prescription en français. Sur cette dernière, j'a
                         Maintenant, en te fiant à ce texte que voici: {rest}, quel sont les informations pertinentes de la pharmacie? met les dans les champs pharmacy_address, pharmacy_phone et pharmacy_name. 
 
                         Finalement, en ayant accès à TOUT le texte detecté que voici: {bigPicture}, ajoute les informations quantity, start_date et end_date au JSON. Tu peux également utiliser ces informations résiduelles pour modifier tes autres réponses.
+
+                        Pour conclure, utilise toutes les connaissances que tu as acquises pour trouver et inférer le nom du médicament (<name>) et écrit une courte description de son utilité (<description>).
                         
-                        le output JSON doit etre sous le format {{frequence:string, renew: boolean,pharmacy_address:string,pharmacy_phone:string,pharmacy_name:string,quantity:number,start_date:string, end_date:string, interval:string }}""",
+                        le output JSON doit etre sous le format {{frequence:string, renew: boolean,pharmacy_address:string,pharmacy_phone:string,pharmacy_name:string,quantity:number,start_date:string, end_date:string, interval:string, drug_name:string, description : string }}""",
         },
         {"role": "assistant", "content": "Oui bien sur, la réponse est: "},
     ]

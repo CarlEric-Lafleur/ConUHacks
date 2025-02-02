@@ -21,4 +21,7 @@ export class UserCommunicationService {
         return this.communicationService.basicPut<AppUser, AppUser>(`${USER_API_PATH}/${user._id}`, user);
     }
 
+    fetchHelpees(email: string){
+      return this.communicationService.basicGet<AppUser[]>(`helpees/${email}`)
+    }
 }
