@@ -103,7 +103,11 @@ export class UserService {
     });
   }
 
-    fetchHelpees(){
+  fetchPrescriptionsRelatedToAssistant(email: string) {
+    return this.userCommunicationService.fetchHelpees(email);
+  }
+
+   fetchHelpees(){
         const email = this.user.getValue()?.email;
       return this.userCommunicationService.fetchHelpees(email ?? '');
     }

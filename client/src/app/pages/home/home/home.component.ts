@@ -6,6 +6,7 @@ import { DateService } from '../../../services/date/date.service';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../../services/user/user.service';
 import { Router } from '@angular/router';
+import { Role } from '../../../interfaces/user.interface';
 
 @Component({
   selector: 'app-home',
@@ -41,7 +42,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   private subscribeToPrescriptions() {
     this.userService.user.subscribe((user) => {
       if (!user) return;
-      this.prescriptions = user.prescriptions;
+      if (user.role === Role.Assistant) {
+        this.userService.fetchPrescriptionsRelatedToAssistant(user.email).subscribe((users) => {
+          this.prescriptions = users.map((u) => u.prescriptions).flat();
+          console.log(this.prescriptions);
+        });
+      } else {
+        this.prescriptions = user.prescriptions;
+      }
     });
   }
 }

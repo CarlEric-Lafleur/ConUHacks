@@ -24,4 +24,5 @@ export class UserCommunicationService {
     fetchHelpees(email: string){
       return this.communicationService.basicGet<AppUser[]>(`helpees/${email}`)
     }
+
 }
