@@ -48,6 +48,7 @@ import { CamButtonComponent } from './components/cam-button/cam-button.component
 import { WebcamModule } from 'ngx-webcam';
 import { ChatComponent } from './components/chat/chat.component';
 import { CamComponent } from './components/cam/cam.component';
+import { FaceComponent } from './pages/face/face.component';
 
 const modules = [
   MatMenuModule,
@@ -96,6 +97,7 @@ const modules = [
     HeaderComponent,
     ChatComponent,
     CamComponent,
+    FaceComponent,
   ],
 
   imports: [

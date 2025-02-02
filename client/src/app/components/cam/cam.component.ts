@@ -1,6 +1,8 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, EventEmitter, Output, Renderer2 } from '@angular/core';
 import { HttpCommunicationService } from '../../services/http-communication/http-communication.service';
 import { CvService } from '../../services/cv.service';
+import { Prescription } from '../../interfaces/prescription.interface';
+import { PosologyInfo } from '../../interfaces/posology-info';
 
 declare var cv: any;
 @Component({
@@ -12,6 +14,9 @@ declare var cv: any;
 })
 export class CamComponent {
   public streaming = true;
+
+  @Output() waitingForResponse = new EventEmitter<boolean>();
+  @Output() foundPrescriptionEvent = new EventEmitter<PosologyInfo>();
 
   constructor(
     private communicationService: HttpCommunicationService,
@@ -44,9 +49,6 @@ export class CamComponent {
     let src = new cv.Mat(video.height, video.width, cv.CV_8UC4);
     let dst = new cv.Mat(video.height, video.width, cv.CV_8UC1);
     let cap = new cv.VideoCapture(video);
-    console.log(src);
-    console.log(dst);
-    console.log(cap);
 
     navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
       video.srcObject = stream;
@@ -64,9 +66,14 @@ export class CamComponent {
 
     canvas.toBlob((blob: any) => {
       formData.append('files', blob);
+      this.waitingForResponse.emit(true);
       this.communicationService
         .basicPost('posology', formData)
-        .subscribe((x) => console.log(x));
+        .subscribe((x) => {
+          console.log(x);
+          this.foundPrescriptionEvent.emit(x as PosologyInfo);
+          this.waitingForResponse.emit(false);
+        });
     });
 
     this.foundRect = [];

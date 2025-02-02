@@ -1,7 +1,15 @@
-import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Output,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { WebcamImage } from 'ngx-webcam';
 import { Subject, Observable } from 'rxjs';
 import { HttpCommunicationService } from '../../services/http-communication/http-communication.service';
+import { PosologyInfo } from '../../interfaces/posology-info';
 
 @Component({
   selector: 'app-cam-button',
@@ -12,8 +20,19 @@ import { HttpCommunicationService } from '../../services/http-communication/http
 })
 export class CamButtonComponent {
   public showWebcam = false;
+  waitingForResponse = false;
+
+  @Output() foundPrescriptionEvent = new EventEmitter<any>();
 
   toggleCam() {
     this.showWebcam = !this.showWebcam;
+  }
+
+  waitingForResponseEvent(waiting: boolean) {
+    this.waitingForResponse = waiting;
+  }
+
+  foundPrescription(res: PosologyInfo) {
+    this.foundPrescriptionEvent.emit(res);
   }
 }
