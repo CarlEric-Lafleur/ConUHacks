@@ -31,14 +31,30 @@
   }
 </div> -->
 
-<!-- <div class="form-container">
-    <mat-form-field class="form-field">
-      <mat-label>Drug name</mat-label>
-      <input
-        matInput
-        [(ngModel)]="prescription.drugName"
-        type="string"
-        required
-        [pattern]="textNotNullOrWhitespacePattern"
-      />
-    </mat-form-field> -->
+<div class="form-container">
+  <mat-form-field class="form-field">
+    <mat-label>Email</mat-label>
+    <input
+      matInput
+      [(ngModel)]="email"
+      type="string"
+      required
+      [pattern]="textNotNullOrWhitespacePattern"
+    />
+  </mat-form-field>
+  <mat-form-field class="form-field">
+    <mat-label>Phone number</mat-label>
+    <input
+      matInput
+      [(ngModel)]="phoneNumber"
+      type="string"
+      required
+      [pattern]="textNotNullOrWhitespacePattern"
+    />
+  </mat-form-field>
+  <div class="button-container">
+    <button mat-fab extended (click)="save()" class="save-button">
+      <mat-icon>save</mat-icon>Save
+    </button>
+  </div>
+</div>
