@@ -27,6 +27,7 @@ export class MedicineCardComponent {
   ) {}
 
   @Input() prescription!: Prescription;
+  @Input() index!: number;
   private icon!: string;
   public timeLeft!: string;
 
@@ -71,7 +72,7 @@ export class MedicineCardComponent {
   }
 
   Edit() {
-    this.prescriptionInfoService.prescription = this.prescription;
+    this.prescriptionInfoService.setPrescription(this.prescription, this.index);
     this.navigateTo(AppPages.Form);
   }
 }

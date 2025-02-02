@@ -39,9 +39,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
+  trackByDrugName(index: number, prescription: Prescription): string {
+    return prescription.drugName;
+  }
+
   navigateTo(route: string): void {
     if (route === "form") {
-      this.prescriptionService.prescription = "new";
+      this.prescriptionService.setPrescription("new", -1);
     }
     this.router.navigate([route]);
   }

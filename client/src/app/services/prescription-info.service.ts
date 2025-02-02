@@ -5,6 +5,16 @@ import { Prescription } from '../interfaces/prescription.interface';
   providedIn: 'root',
 })
 export class PrescriptionInfoService {
-  prescription: Prescription | null | "new" = null;
+  private prescription: Prescription| "new" = "new";
+  index: number = -1;
   constructor() {}
+
+  getPrescription() {
+    return this.prescription;
+  }
+  setPrescription(prescription: Prescription | "new", index: number) {
+    this.prescription = prescription;
+    this.index = index;
+  }
+
 }
