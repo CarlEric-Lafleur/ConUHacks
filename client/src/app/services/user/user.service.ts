@@ -86,9 +86,17 @@ export class UserService {
       return;
     }
     console.log(user);
-    user.prescriptions.push(prescription);
-    this.updateAccount(user);
+    if(!user.prescriptions) {
+      this.userCommunicationService.pushDrug(user._id, prescription).subscribe();
+      user.prescriptions = [prescription];
+      this.user.next(user);
+    } else {
+      user.prescriptions.push(prescription);
+      this.updateAccount(user);
+    }
+
   }
+
 
   updatePrescription(index: number, prescription: Prescription) {
     const user = this.user.getValue();
