@@ -1,15 +1,30 @@
-<video
-  #videoElement
-  (play)="onPlay()"
-  autoplay
-  muted
-  [style.width.%]="100"
-  [style.height.%]="80"
-  [style.marginBottom.%]="10"
-></video>
-<canvas
-  #canvasElement
-  [style.width.%]="100"
-  [style.height.%]="80"
-  [style.marginBottom.%]="10"
-></canvas>
+<div #videoContainer class="video-container">
+  <span class="status-text">
+    {{
+      state === "undetected" ? "Looking for a face..." : "Please take medicine."
+    }}
+  </span>
+  <video
+    #videoElement
+    (play)="onPlay()"
+    autoplay
+    muted
+    [style.width.%]="100"
+    [style.height.%]="80"
+    [style.marginBottom.%]="10"
+  ></video>
+  <canvas
+    #canvasElement
+    [style.width.%]="100"
+    [style.height.%]="80"
+    [style.marginBottom.%]="10"
+  ></canvas>
+  <div class="steps">
+    <div class="step" [class.completed]="state !== 'undetected'"></div>
+    <div
+      class="step"
+      [class.completed]="state === 'open' || state === 'swallow'"
+    ></div>
+    <div class="step" [class.completed]="state === 'swallow'"></div>
+  </div>
+</div>

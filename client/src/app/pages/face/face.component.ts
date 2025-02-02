@@ -4,8 +4,10 @@ import {
   AfterViewInit,
   ViewChild,
   ElementRef,
+  Renderer2,
 } from '@angular/core';
 import * as faceapi from 'face-api.js';
+import { Router } from '@angular/router';
 
 type State = 'undetected' | 'rest' | 'open' | 'interupt' | 'swallow';
 
@@ -18,8 +20,11 @@ type State = 'undetected' | 'rest' | 'open' | 'interupt' | 'swallow';
 export class FaceComponent implements OnInit, AfterViewInit {
   @ViewChild('videoElement') videoElement!: ElementRef;
   @ViewChild('canvasElement') canvasElement!: ElementRef;
-  state: State = 'rest';
+  @ViewChild('videoContainer') videoContainer!: ElementRef;
+  state: State = 'undetected';
   window: (number | null)[] = [];
+
+  constructor(private renderer: Renderer2, private router: Router) {}
 
   async ngOnInit() {
     await await faceapi.loadFaceLandmarkModel('/models');
@@ -41,6 +46,13 @@ export class FaceComponent implements OnInit, AfterViewInit {
   }
 
   changeState(state: State, window: (number | null)[]): State {
+    if (state === 'undetected') {
+      if (window.filter((v) => v !== null).length > 3) {
+        return 'rest';
+      }
+      return 'undetected';
+    }
+
     if (state === 'rest') {
       if (window.filter((v) => (v || 0) > 0.1).length > 3) {
         return 'open';
@@ -75,6 +87,7 @@ export class FaceComponent implements OnInit, AfterViewInit {
         console.log(this.state);
         if (this.state === 'swallow') {
           console.log('swallow');
+          this.completeSteps();
         }
       }
 
@@ -93,5 +106,16 @@ export class FaceComponent implements OnInit, AfterViewInit {
         faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
       }
     }, 100);
+  }
+
+  completeSteps() {
+    this.renderer.setStyle(
+      this.videoContainer.nativeElement,
+      'background-color',
+      '#4caf50'
+    );
+    setTimeout(() => {
+      this.router.navigate(['/home']);
+    }, 2000);
   }
 }
