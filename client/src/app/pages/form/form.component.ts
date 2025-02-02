@@ -46,13 +46,20 @@ export class FormComponent {
       this.prescription.schedule.forEach((schedule) => {
         schedule.day = Day.Everyday;
       });
+    } else {
+      this.prescription.schedule.forEach((schedule) => {
+        schedule.day = Day.Sunday;
+      });
     }
   }
 
   onBlurFreq() {
     while (this.prescription.schedule.length < this.prescription.freq.times) {
       this.prescription.schedule.push({
-        day: Day.Everyday,
+        day:
+          this.prescription.freq.period === Period.Day
+            ? Day.Everyday
+            : Day.Sunday,
         time: '10:00',
         hasBeenNotified: false,
         isTaken: false,
