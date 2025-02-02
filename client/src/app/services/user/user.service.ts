@@ -7,7 +7,7 @@ import { NotificationType } from '../../interfaces/notification-content';
 import { FirebaseService } from '../firebase/firebase.service';
 import { NotificationService } from '../notification/notification.service';
 import { UserCommunicationService } from '../user-communication/user-communication.service';
-import { AppUser } from '../../interfaces/user.interface';
+import { AppUser, AssistantInfo, Role } from '../../interfaces/user.interface';
 import { User } from 'firebase/auth';
 import { BehaviorSubject } from 'rxjs';
 
@@ -51,25 +51,36 @@ export class UserService {
           });
     }
 
-    changeSelectedAvatar(avatarUrl: string) {
-        const user = this.user.getValue();
-        if (user) {
-            this.userCommunicationService.changeSelectedAvatar(user._id, avatarUrl).subscribe((updatedUser: AppUser) => {
-                this.user.next(updatedUser);
-                this.showSuccessNotification('Avatar modifié avec succès!');
+    createAssistantAccount( newAssistant: AssistantInfo, password: string) {
+        this.firebaseService
+            .createUser(newAssistant.email, password)
+            .then((user: User) => {
+                let newUser: AppUser = {
+                    _id: user.uid,
+                    email: newAssistant.email,
+                    displayName: newAssistant.name,
+                    phoneNumber: newAssistant.phoneNumber,
+                    prescriptions: [],
+                    assistMode: true,
+                    assistantInfo: newAssistant,
+                    role: Role.Assistant,
+                };
+                console.log("newUser", newUser);
+                this.handleNewAssistantAccountSuccess(newUser);
+            })
+            .catch((error) => {
+                const errorMessage: string = AUTHENTICATION_ERROR_MESSAGE.get(error.code) || 'Erreur inconnue';
+                this.showErrorNotification(errorMessage);
             });
-        }
     }
 
-    updateUsername(username: string) {
-        const user = this.user.getValue();
-        if (user) {
-            this.userCommunicationService.updateUsername(user._id, username).subscribe((updatedUser: AppUser) => {
-                this.user.next(updatedUser);
-                this.showSuccessNotification("Le nom d'utilisateur a été modifié avec succès!");
-            });
-        }
+    updateAccount(user: AppUser) {
+        this.userCommunicationService.updateUser(user).subscribe((userData: AppUser) => {
+            this.user.next(userData);
+            this.showSuccessNotification('Account updated successfully!');
+        });
     }
+
 
     getUserId(): string | null {
         return this.firebaseService.getUserId();
@@ -82,7 +93,7 @@ export class UserService {
     showErrorNotification(messageError: string) {
         this.notificationService.showBanner({
             message: messageError,
-            type: NotificationType.Warning,
+            type: NotificationType.Error,
             durationMs: WARNING_NOTIFICATION_DURATION,
         });
     }
@@ -94,26 +105,38 @@ export class UserService {
                 this.handleSignInSuccess(user);
             })
             .catch((error) => {
-                const errorMessage: string = AUTHENTICATION_ERROR_MESSAGE.get(error.code) || 'Erreur inconnue';
+                const errorMessage: string = AUTHENTICATION_ERROR_MESSAGE.get(error.code) || 'Unknown error';
                 this.showErrorNotification(errorMessage);
             });
     }
     private handleSignInSuccess(user: User) {
         this.userCommunicationService.fetchUserById(user.uid).subscribe((userData: AppUser) => {
             this.user.next(userData);
-            this.showSuccessNotification(`Bon retour ${user.email}!`);
+            this.showSuccessNotification(`Welcome ${user.email}!`);
             this.router.navigate([AppRoutes.Home]);
+        });
+    }
+
+    private handleNewAssistantAccountSuccess(user: AppUser) {
+        if (!user.email) {
+            this.showErrorNotification("Assistant email could not be retrieved from the user's account");
+            return;
+        }
+        this.userCommunicationService.createUser(user).subscribe((userData: AppUser) => {
+            console.log("userData", userData);
+            this.user.next(userData);
+            this.signOutAssistant();
         });
     }
 
     private handleNewAccountSuccess(user: AppUser) {
         if (!user.email) {
-            this.showErrorNotification("L'email n'a pas pu être validé. Veuillez reessayer");
+            this.showErrorNotification("Email could not be retrieved from the user's account");
             return;
         }
         this.userCommunicationService.createUser(user).subscribe((userData: AppUser) => {
             this.user.next(userData);
-            this.showSuccessNotification(`Compte créé avec succès! Bienvenue ${user.email}!`);
+            this.showSuccessNotification(`Account created successfully! Welcome ${user.email}!`);
             this.router.navigate([AppRoutes.Home]);
         });
     }
@@ -124,6 +147,10 @@ export class UserService {
             type: NotificationType.Success,
             durationMs: WARNING_NOTIFICATION_DURATION,
         });
+    }
+
+    private signOutAssistant() {
+        this.firebaseService.signOut();
     }
 
 }
