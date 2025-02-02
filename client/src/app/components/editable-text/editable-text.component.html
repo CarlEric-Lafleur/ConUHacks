@@ -1,0 +1,12 @@
+<div class="editable-container">
+  <span *ngIf="!isEditing" class="text" (click)="enableEdit()">
+    {{ text }}
+    <mat-icon class="edit-icon">edit</mat-icon>
+  </span>
+
+  <div *ngIf="isEditing" class="edit-mode">
+    <input type="text" [(ngModel)]="tempText" />
+    <mat-icon class="icon confirm" (click)="confirmEdit()">check</mat-icon>
+    <mat-icon class="icon cancel" (click)="cancelEdit()">close</mat-icon>
+  </div>
+</div>
