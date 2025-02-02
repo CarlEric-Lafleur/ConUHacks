@@ -74,17 +74,12 @@ async def query_groq(message: str):
     id = "123"  # CHANGEME
     return g.chat(id, message)
 
-@app.post("/drugs/")
-async def create_drug_api(drug_dict: dict):
-    id = await db.create_drug(drug_dict)
-    return {"drug_id": str(id)}
+@app.post("/prescriptions/{user_id}")
+async def push_drug_api(user_id: str,drug_dict: dict):
+    await db.push_prescription(user_id, drug_dict)
+    return await db.get_user(user_id) 
 
-@app.get("/drugs/{id}")
-async def get_drug_api(id: str):
-    drug = await db.get_drug(id)
-    return drug 
-
-@app.get("/drugs/")
-async def get_drugs_api():
-    drugs = await db.get_drugs()
-    return drugs
+@app.get("/prescriptions/{user_id}")
+async def get_drugs_api(user_id:str):
+    drugs = await db.get_user(user_id)
+    return drugs["prescriptions"]
