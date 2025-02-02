@@ -1,13 +1,18 @@
 <mat-card class="box">
   <mat-card-header>
-    <mat-card-title>
+    <mat-card-title [ngClass]="{ bold: readyToTake() }">
       {{ prescription.drugName }}
     </mat-card-title>
   </mat-card-header>
   <mat-card-actions>
-    <button mat-flat-button class="box">Take it</button>
+    <button
+      mat-flat-button
+      class="box"
+      [disabled]="!readyToTake()"
+      (click)="takeNow()"
+    >
+      {{ getDateText() }}
+    </button>
+    <button mat-flat-button class="box" (click)="Edit()">Edit</button>
   </mat-card-actions>
-  <mat-chip-set>
-    <mat-chip>{{ dateText }}</mat-chip>
-  </mat-chip-set>
 </mat-card>

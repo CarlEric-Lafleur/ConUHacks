@@ -6,8 +6,10 @@ import {
   Prescription,
   Schedule,
 } from '../../../interfaces/prescription.interface';
-import { DAYS } from '../../../constants/days.constants';
-import { findIndex } from 'rxjs';
+import { UserService } from '../../../services/user/user.service';
+import { Router } from '@angular/router';
+import { AppPages } from '../../../enums/app-pages.enum';
+
 @Component({
   selector: 'app-medicine-card',
   standalone: false,
@@ -16,19 +18,26 @@ import { findIndex } from 'rxjs';
   styleUrl: './medicine-card.component.scss',
 })
 export class MedicineCardComponent {
-  constructor(private dateService: DateService) {}
+  constructor(
+    private dateService: DateService,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   @Input() prescription!: Prescription;
-  public dateText!: string;
   private icon!: string;
   public timeLeft!: string;
 
   ngOnInit() {
-    console.log(this.prescription);
-
-    this.dateText = this.dateService.getDateText(this.prescription);
-
     this.prescription.type ? this.setIcon(this.prescription.type) : null;
+  }
+
+  getDateText() {
+    return this.dateService.getDateText(this.prescription);
+  }
+
+  readyToTake() {
+    return this.dateService.readyToTake(this.prescription);
   }
 
   public getIcon(): string {
@@ -47,5 +56,19 @@ export class MedicineCardComponent {
         this.icon = 'medical_services';
         break;
     }
+  }
+
+  navigateTo(route: string): void {
+    this.router.navigate([route]);
+  }
+
+  takeNow() {
+    if (this.userService.user.getValue()?.assistMode) {
+      this.navigateTo(AppPages.takeDrug);
+    }
+  }
+
+  Edit() {
+    this.navigateTo(AppPages.Form);
   }
 }

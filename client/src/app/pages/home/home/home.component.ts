@@ -33,7 +33,7 @@ export class HomeComponent {
       },
       endDate: '2025',
       instructions: 'Take with water',
-      schedule: [{ time: '21:30', day: Day.Everyday }],
+      schedule: [{ time: '16:30', day: Day.Everyday }],
       type: DrugType.PILL,
     } as Prescription,
     {
@@ -53,6 +53,7 @@ export class HomeComponent {
       schedule: [
         { time: '8:30', day: Day.Monday },
         { time: '12:30', day: Day.Friday },
+        { time: '22:30', day: Day.Saturday },
       ],
       type: DrugType.PILL,
     } as Prescription,

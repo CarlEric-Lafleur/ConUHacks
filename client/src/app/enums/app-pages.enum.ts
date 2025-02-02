@@ -1,8 +1,7 @@
 export enum AppPages {
-    Login = 'login',
-    Home = 'home',
-    Play = 'play',
-    GameCreation = 'game-creation',
-    Quiz = 'quiz',
-    Admin = 'admin',
+  Login = 'login',
+  Home = 'home',
+  Admin = 'admin',
+  takeDrug = 'take-drug',
+  Form = 'form',
 }
