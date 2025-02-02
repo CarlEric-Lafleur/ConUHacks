@@ -99,7 +99,8 @@ export class UserService {
     }
 
     fetchHelpees(){
-      return this.userCommunicationService.fetchHelpees(this.user.getValue()?.email)
+        const email = this.user.getValue()?.email;
+      return this.userCommunicationService.fetchHelpees(email ?? '');
     }
 
     private async signInWithFirebase(email: string, password: string) {

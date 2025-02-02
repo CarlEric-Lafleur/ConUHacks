@@ -1,14 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   Prescription,
-  Frequency,
-  Period,
-  DrugType,
-  Day,
 } from '../../../interfaces/prescription.interface';
 import { DateService } from '../../../services/date/date.service';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../../services/user/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +16,7 @@ import { UserService } from '../../../services/user/user.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
-  constructor(private dateService: DateService, private userService: UserService) {}
+  constructor(private dateService: DateService, private userService: UserService, private router: Router) {}
 
   prescriptions: Prescription[] = [];
 
@@ -35,6 +32,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     return this.prescriptions.sort((a, b) =>
       this.dateService.comparePrescriptions(a, b)
     );
+  }
+
+  navigateTo(route: string): void {
+    this.router.navigate([route]);
   }
 
   private subscribeToPrescriptions() {
