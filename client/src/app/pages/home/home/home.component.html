@@ -1,21 +1,23 @@
 <app-header></app-header>
-@if (prescriptions.length === 0) {
-  <div class="container">
-    <p>No prescription registered right now</p>
-    <button mat-flat-button color="primary" (click)="navigateTo('form')">Add prescription</button>
-
-  </div>
+@if (!prescriptions || prescriptions.length === 0) {
+<div class="container">
+  <p>No prescription registered right now</p>
+  <button mat-flat-button color="primary" (click)="navigateTo('form')">
+    Add prescription
+  </button>
+</div>
 } @else {
-  <div class="container">
-    @for (prescription of getPrescriptions(); track prescription.drugName) {
-    <app-medicine-card
-      [prescription]="prescription"
-      class="card"
-    ></app-medicine-card>
-    }
-    <button mat-flat-button color="primary" (click)="navigateTo('form')">Add Medicine</button>
-
-  </div>
+<div class="container">
+  @for (prescription of getPrescriptions(); track prescription.drugName) {
+  <app-medicine-card
+    [prescription]="prescription"
+    class="card"
+  ></app-medicine-card>
+  }
+  <button mat-flat-button color="primary" (click)="navigateTo('form')">
+    Add Medicine
+  </button>
+</div>
 }
 
 <app-chat></app-chat>
