@@ -1,4 +1,10 @@
 import { Injectable } from '@angular/core';
+import {
+  Day,
+  Prescription,
+  Schedule,
+} from '../../interfaces/prescription.interface';
+import { DAYS } from '../../constants/days.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -7,48 +13,85 @@ export class DateService {
   constructor() {}
 
   isSoon(date: number): boolean {
-    const oneDay= 24*60*60*1000;
-    return (Date.now() - date < oneDay) ? true : false;
+    const oneDay = 24 * 60 * 60 * 1000;
+    return Date.now() - date < oneDay ? true : false;
   }
 
-  MMDDformat(epochDate:number): string{
-        const date = new Date(epochDate)
-        return `${String(date.getDay()).padStart(2,'0')}-${String(date.getMonth() + 1).padStart(2, '0')}`
+  MMDDformat(epochDate: number): string {
+    const date = new Date(epochDate);
+    return `${String(date.getDay()).padStart(2, '0')}-${String(
+      date.getMonth() + 1
+    ).padStart(2, '0')}`;
   }
 
-  getDayText(date: Date): string {
-    const inputDate = new Date(date);
-    const today = new Date();
+  getDateText(prescription: Prescription): string {
+    prescription.schedule.sort((a, b) => this.compareSchedule(a, b));
+    const nextConsumeDate = this.getNextConsumeDate(prescription);
+    const now = new Date();
+    const timeDifference = nextConsumeDate.getTime() - now.getTime();
 
-    today.setHours(0, 0, 0, 0);
-    inputDate.setHours(0, 0, 0, 0);
+    let timeLeft: string;
 
-    const diffInDays = Math.round(
-      (inputDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-    );
-
-    if (diffInDays === 0) return 'Today';
-    if (diffInDays === -1) return 'Yesterday';
-    if (diffInDays === 1) return 'Tomorrow';
-
-    if (diffInDays < 0 && diffInDays >= -6) {
-      return `Last ${inputDate.toLocaleDateString('en-US', {
-        weekday: 'long',
-      })}`;
+    if (timeDifference <= 60 * 1000) {
+      timeLeft = '1 minute';
+    } else if (timeDifference <= 60 * 60 * 1000) {
+      timeLeft = `${Math.ceil(timeDifference / (60 * 1000))} minutes`;
+    } else if (timeDifference <= 24 * 60 * 60 * 1000) {
+      timeLeft = `${Math.ceil(timeDifference / (60 * 60 * 1000))} hours`;
+    } else {
+      timeLeft = `${Math.ceil(timeDifference / (24 * 60 * 60 * 1000))} days`;
     }
 
-    if (diffInDays > 1 && diffInDays <= 6) {
-      return `${inputDate.toLocaleDateString('en-US', {
-        weekday: 'long',
-      })}`;
-    }
-
-    if (diffInDays < 0) return `${Math.abs(diffInDays)} days ago`;
-
-    return `In ${diffInDays} days`;
+    return this.isSoon(nextConsumeDate.getTime())
+      ? `Take in ${timeLeft}`
+      : this.MMDDformat(nextConsumeDate.getTime());
   }
 
-  getFormattedDate(date: Date): string {
-    return this.getDayText(date) + ', at' + date.toLocaleTimeString('en-US');
+  private getNextConsumeDate(prescription: Prescription): Date {
+    const now = new Date();
+    for (const schedule of prescription.schedule) {
+      const scheduleDate = this.getDateFromSchedule(schedule);
+      if (scheduleDate > now) {
+        return scheduleDate;
+      }
+    }
+    const firstSchedule = prescription.schedule[0];
+    const firstScheduleDate = this.getDateFromSchedule(firstSchedule);
+    firstScheduleDate.setDate(firstScheduleDate.getDate() + 7);
+    return firstScheduleDate;
+  }
+
+  private compareSchedule(a: Schedule, b: Schedule): number {
+    const now = new Date();
+    const aDate = this.getDateFromSchedule(a);
+    const bDate = this.getDateFromSchedule(b);
+    return aDate.getTime() - bDate.getTime();
+  }
+
+  comparePrescriptions(a: Prescription, b: Prescription): number {
+    const aDate = this.getNextConsumeDate(a);
+    const bDate = this.getNextConsumeDate(b);
+    return aDate.getTime() - bDate.getTime();
+  }
+
+  private getDateFromSchedule(schedule: Schedule): Date {
+    const now = new Date();
+    const dayOffset = this.getDayOffset(schedule.day);
+    const [hours, minutes] = schedule.time.split(':').map(Number);
+    const scheduleDate = new Date(now);
+    scheduleDate.setDate(now.getDate() + dayOffset);
+    scheduleDate.setHours(hours, minutes, 0, 0);
+    return scheduleDate;
+  }
+
+  private getDayOffset(day: Day): number {
+    if (day === Day.Everyday) {
+      return 0;
+    }
+    const now = new Date();
+    const today = now.getDay();
+    const targetDay: number = DAYS.findIndex((d) => d === Day[day]);
+    const dayOffset = (targetDay - today + 7) % 7;
+    return dayOffset;
   }
 }

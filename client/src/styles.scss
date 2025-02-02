@@ -1,16 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
-@use '@angular/material' as mat;
+// @use "@angular/material" as mat;
+// @import "~@angular/material/theming";
+// @include mat-core();
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: rgb(233, 255, 233); }
+// html,
+// body {
+//   height: 100%;
+// }
+// body {
+//   margin: 0;
+//   font-family: Roboto, "Helvetica Neue", sans-serif;
+//   background-color: rgb(233, 255, 233);
+// }
 
-html {
-  color-scheme: light dark;
-  @include mat.theme((
-    color: (
-        primary: mat.$green-palette,
-    ),
-    typography: Roboto,
-    density: 0
-  ));
+// $indigo-palette: mat-palette($mat-indigo);
+// html {
+//   color-scheme: light dark;
+//   @include mat.theme(
+//     (
+//       color: (
+//         primary: mat.$indigo-palette,
+//       ),
+//       typography: Roboto,
+//       density: 0,
+//     )
+//   );
+// }
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

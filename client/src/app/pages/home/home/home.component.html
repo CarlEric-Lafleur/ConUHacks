@@ -1,7 +1,9 @@
-
 <app-header></app-header>
 <div class="container">
-  @for (prescription of prescriptions; track prescription.drugName) {
-  <app-medicine-card [prescription]="prescription" class="card"></app-medicine-card>
+  @for (prescription of getPrescriptions(); track prescription.drugName) {
+  <app-medicine-card
+    [prescription]="prescription"
+    class="card"
+  ></app-medicine-card>
   }
 </div>

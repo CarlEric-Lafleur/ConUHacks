@@ -3,7 +3,13 @@
   padding: 5%;
 }
 
-.col{
+.col {
   display: flex;
   flex-direction: row;
+}
+
+mat-icon.mat-card-avatar {
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
 }
