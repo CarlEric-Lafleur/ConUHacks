@@ -37,7 +37,7 @@ async def update_user(user_id: str, update_data: dict):
 
 async def push_prescription(user_id: str, prescription: dict):
     result = await get_user_collection().update_one(
-        {"_id": ObjectId(user_id)}, {"$push": prescription}
+        {"_id": ObjectId(user_id)}, {"$push": {"prescriptions": prescription}}
     )
     return result.modified_count > 1
 
