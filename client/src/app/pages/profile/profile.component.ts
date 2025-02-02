@@ -50,6 +50,7 @@ export class ProfileComponent implements OnInit {
     if (!userId){
       this.router.navigate(['login'])
     } else {
+      this.userService.fetchHelpees().subscribe((x)=>this.children = x)
     }
   }
 }

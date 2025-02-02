@@ -10,6 +10,7 @@ import { UserCommunicationService } from '../user-communication/user-communicati
 import { AppUser, AssistantInfo, Role } from '../../interfaces/user.interface';
 import { User } from 'firebase/auth';
 import { BehaviorSubject } from 'rxjs';
+import { user } from '@angular/fire/auth';
 
 @Injectable({
     providedIn: 'root',
@@ -95,6 +96,10 @@ export class UserService {
             type: NotificationType.Error,
             durationMs: WARNING_NOTIFICATION_DURATION,
         });
+    }
+
+    fetchHelpees(){
+      return this.userCommunicationService.fetchHelpees(this.user.getValue()?.email)
     }
 
     private async signInWithFirebase(email: string, password: string) {
