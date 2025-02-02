@@ -1,6 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { Interval, PosologyInfo } from '../../interfaces/posology-info';
-import { Period, Prescription } from '../../interfaces/prescription.interface';
+import {
+  Day,
+  Period,
+  Prescription,
+} from '../../interfaces/prescription.interface';
 import { PrescriptionInfoService } from '../../services/prescription-info.service';
 import { Router } from '@angular/router';
 import { AppPages } from '../../enums/app-pages.enum';
@@ -33,7 +37,31 @@ export class FormComponent {
     this.prescriptionInfoService.prescription = null;
   }
 
-  selectedTime: string = '';
+  //   selectedTime: string = '';
+
+  periodOptions = [Period.Day, Period.Week];
+
+  onSelectChange() {
+    if (this.prescription.freq.period === Period.Day) {
+      this.prescription.schedule.forEach((schedule) => {
+        schedule.day = Day.Everyday;
+      });
+    }
+  }
+
+  onBlurFreq() {
+    while (this.prescription.schedule.length < this.prescription.freq.times) {
+      this.prescription.schedule.push({
+        day: Day.Everyday,
+        time: '10:00',
+        hasBeenNotified: false,
+        isTaken: false,
+      });
+    }
+    while (this.prescription.schedule.length > this.prescription.freq.times) {
+      this.prescription.schedule.pop();
+    }
+  }
 
   foundPrescription(posologyInfo: PosologyInfo) {
     this.prescription.drugName = posologyInfo.drug_name;
