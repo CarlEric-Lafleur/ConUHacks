@@ -28,6 +28,10 @@ export class CamButtonComponent {
     this.showWebcam = !this.showWebcam;
   }
 
+  getShowWebcam() {
+    return this.showWebcam;
+  }
+
   waitingForResponseEvent(waiting: boolean) {
     this.waitingForResponse = waiting;
   }

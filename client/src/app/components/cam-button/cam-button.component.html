@@ -1,8 +1,9 @@
-<div *ngIf="showWebcam">
+<div>
   <app-cam
-    (waitingForResponse)="waitingForResponseEvent($event)"
+    *ngIf="getShowWebcam()"
     (foundPrescriptionEvent)="foundPrescription($event)"
   ></app-cam>
+  <!-- Add spinner here -->
 </div>
 <div class="container">
   <button mat-fab extended (click)="toggleCam()" class="cam-button">
