@@ -5,4 +5,8 @@
   [style.display]="'none'"
 ></video>
 
-<canvas id="canvasOutput" [style.width.%]="100"></canvas>
+<div class="canvas-container">
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <canvas id="canvasOutput" [style.width.%]="100"></canvas>
+  <!-- Add spinner here -->
+</div>
