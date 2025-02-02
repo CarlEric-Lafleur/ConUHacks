@@ -13,6 +13,13 @@
     >
       {{ getDateText() }}
     </button>
-    <button mat-flat-button class="box" (click)="Edit()">Edit</button>
+    <button
+      mat-flat-button
+      class="box"
+      (click)="Edit()"
+      *ngIf="isAssistedUser()"
+    >
+      Edit
+    </button>
   </mat-card-actions>
 </mat-card>
