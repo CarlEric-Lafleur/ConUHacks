@@ -1,3 +1,7 @@
 <div class="col">
-  <app-cam-button class="app-cam-button"> </app-cam-button>
+  <app-cam-button
+    class="app-cam-button"
+    (foundPrescriptionEvent)="foundPrescription($event)"
+  >
+  </app-cam-button>
 </div>

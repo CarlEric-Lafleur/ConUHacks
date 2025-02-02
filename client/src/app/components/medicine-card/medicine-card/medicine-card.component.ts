@@ -9,6 +9,7 @@ import {
 import { UserService } from '../../../services/user/user.service';
 import { Router } from '@angular/router';
 import { AppPages } from '../../../enums/app-pages.enum';
+import { PrescriptionInfoService } from '../../../services/prescription-info.service';
 
 @Component({
   selector: 'app-medicine-card',
@@ -21,7 +22,8 @@ export class MedicineCardComponent {
   constructor(
     private dateService: DateService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private prescriptionInfoService: PrescriptionInfoService
   ) {}
 
   @Input() prescription!: Prescription;
@@ -69,6 +71,7 @@ export class MedicineCardComponent {
   }
 
   Edit() {
+    this.prescriptionInfoService.prescription = this.prescription;
     this.navigateTo(AppPages.Form);
   }
 }

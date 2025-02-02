@@ -1,8 +1,12 @@
 <div *ngIf="showWebcam">
-  <app-cam></app-cam>
+  <app-cam
+    (waitingForResponse)="waitingForResponseEvent($event)"
+    (foundPrescriptionEvent)="foundPrescription($event)"
+  ></app-cam>
 </div>
 <div class="container">
   <button mat-fab extended (click)="toggleCam()" class="cam-button">
-    <mat-icon>photo_camera</mat-icon>Fill automatically
+    <mat-icon>photo_camera</mat-icon
+    >{{ showWebcam ? "Cancel" : "Fill automatically" }}
   </button>
 </div>
