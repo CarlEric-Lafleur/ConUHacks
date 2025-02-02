@@ -17,6 +17,8 @@ import { AppPages } from '../../enums/app-pages.enum';
   styleUrl: './form.component.scss',
 })
 export class FormComponent {
+  private isNewPrescription: boolean = false;
+  private index: number = -1;
   constructor(
     private prescriptionInfoService: PrescriptionInfoService,
     private router: Router
@@ -27,13 +29,16 @@ export class FormComponent {
   prescription: Prescription = {} as Prescription;
 
   ngOnInit() {
-    if (!this.prescriptionInfoService.prescription) {
+    if (!this.prescriptionInfoService.getPrescription() && this.prescriptionInfoService.index === -1) {
       this.router.navigate([AppPages.Home]);
     }
-    const value = this.prescriptionInfoService.prescription!;
+    const value = this.prescriptionInfoService.getPrescription();
+    this.index = this.prescriptionInfoService.index;
     if (value == "new") {
+      this.isNewPrescription = true;
       this.prescription = {} as Prescription;
     } else {
+      this.isNewPrescription = false;
       this.prescription = value;
     }
   }
@@ -41,7 +46,7 @@ export class FormComponent {
   save() {}
 
   ngOnDestroy() {
-    this.prescriptionInfoService.prescription = null;
+    this.prescriptionInfoService.setPrescription("new", -1);
   }
 
   //   selectedTime: string = '';
