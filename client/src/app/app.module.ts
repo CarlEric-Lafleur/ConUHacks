@@ -55,6 +55,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { TimepickerComponent } from './components/timepicker/timepicker.component';
+import { ScheduleComponent } from './components/schedule/schedule.component';
 
 const modules = [
   NgxMaterialTimepickerModule,
@@ -110,6 +111,7 @@ const modules = [
     TimepickerComponent,
     ProfileComponent,
     EditableTextComponent,
+    ScheduleComponent,
   ],
 
   imports: [

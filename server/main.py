@@ -40,6 +40,7 @@ async def get_users_api():
 
 @app.post("/users/")
 async def create_user_api(user: dict):
+    print("here", user)
     user_id = await db.create_user(user)
     return {"user_id": user_id}
 
@@ -87,6 +88,7 @@ async def push_drug_api(user_id: str, drug_dict: dict):
 async def get_drugs_api(user_id: str):
     drugs = await db.get_user(user_id)
     return drugs["prescriptions"]
+
 
 @app.get("/helpees/{email}")
 async def get_helpees(email: str):
