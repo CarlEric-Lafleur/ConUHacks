@@ -25,6 +25,7 @@ g = GroqServices()
 
 load_dotenv()
 
+
 @app.get("/")
 async def read_root():
     response = await db.test_db_connection()
@@ -75,12 +76,14 @@ async def query_groq(message: str):
     id = "123"  # CHANGEME
     return g.chat(id, message)
 
+
 @app.post("/prescriptions/")
 async def create_drug_api(drug_dict: dict):
-    await db.update_user(drug_dict["_id"], drug_dict )
-    return {"message":"user updated successfully"} 
+    await db.update_user(drug_dict["_id"], drug_dict)
+    return {"message": "user updated successfully"}
+
 
 @app.get("/prescriptions/{user_id}")
-async def get_drugs_api(user_id:str):
+async def get_drugs_api(user_id: str):
     drugs = await db.get_user(user_id)
     return drugs["prescriptions"]
