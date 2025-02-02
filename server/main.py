@@ -6,6 +6,7 @@ import DatabaseService as db
 from services.groq_service import GroqServices
 import numpy as np
 from starlette.middleware.cors import CORSMiddleware
+import PerscriptionService as ps
 
 from dotenv import load_dotenv
 
@@ -74,17 +75,12 @@ async def query_groq(message: str):
     id = "123"  # CHANGEME
     return g.chat(id, message)
 
-@app.post("/drugs/")
+@app.post("/prescriptions/")
 async def create_drug_api(drug_dict: dict):
-    id = await db.create_drug(drug_dict)
-    return {"drug_id": str(id)}
+    await db.update_user(drug_dict["_id"], drug_dict )
+    return {"message":"user updated successfully"} 
 
-@app.get("/drugs/{id}")
-async def get_drug_api(id: str):
-    drug = await db.get_drug(id)
-    return drug 
-
-@app.get("/drugs/")
-async def get_drugs_api():
-    drugs = await db.get_drugs()
-    return drugs
+@app.get("/prescriptions/{user_id}")
+async def get_drugs_api(user_id:str):
+    drugs = await db.get_user(user_id)
+    return drugs["prescriptions"]
