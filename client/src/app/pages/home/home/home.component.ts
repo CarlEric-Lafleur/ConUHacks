@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       startDate: '1733082512',
       isRenewable: true,
       freq: {
-        times: 2,
+        times: 3,
         period: Period.Week,
       },
       endDate: '1740833066',
