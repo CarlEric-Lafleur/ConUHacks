@@ -10,6 +10,8 @@ def get_db():
     client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_URI)
     return client.get_database("smart_pill")
 
-def get_collection():
-    return get_db().get_collection("app_user") 
+def get_drug_collection():
+    return get_db().get_collection("app_drugs") 
 
+def get_user_collection():
+    return get_db().get_collection("app_user") 

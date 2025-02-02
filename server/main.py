@@ -2,8 +2,7 @@ from fastapi import FastAPI, UploadFile
 from PIL import Image
 from services.posology_service import PosologyService
 import io
-from models import AppUser
-from userDatabaseService import *
+import DatabaseService as db
 from services.groq_service import GroqServices
 import numpy as np
 from starlette.middleware.cors import CORSMiddleware
@@ -25,40 +24,39 @@ g = GroqServices()
 
 load_dotenv()
 
-
 @app.get("/")
 async def read_root():
-    response = await test_db_connection()
+    response = await db.test_db_connection()
     return response
 
 
 @app.get("/users/")
 async def get_users_api():
-    users = await get_users()
+    users = await db.get_users()
     return users
 
 
-@app.post("/users-post/")
-async def create_user_api(user: AppUser):
-    user_id = await create_user(user)
+@app.post("/users/")
+async def create_user_api(user: dict):
+    user_id = await db.create_user(user)
     return {"user_id": user_id}
 
 
 @app.get("/users/{user_id}")
 async def get_user_api(user_id: str):
-    user = await get_user(user_id)
+    user = await db.get_user(user_id)
     return user
 
 
 @app.put("/users/{user_id}")
 async def update_user_api(user_id: str, user_data: dict):
-    updated = await update_user(user_id, user_data)
+    await db.update_user(user_id, user_data)
     return {"message": "User updated successfully"}
 
 
 @app.delete("/users/{user_id}")
 async def delete_user_api(user_id: str):
-    deleted = await delete_user(user_id)
+    await db.delete_user(user_id)
     return {"message": "User deleted successfully"}
 
 
@@ -75,3 +73,18 @@ async def create_upload_file(files: list[UploadFile]):
 async def query_groq(message: str):
     id = "123"  # CHANGEME
     return g.chat(id, message)
+
+@app.post("/drugs/")
+async def create_drug_api(drug_dict: dict):
+    id = await db.create_drug(drug_dict)
+    return {"drug_id": str(id)}
+
+@app.get("/drugs/{id}")
+async def get_drug_api(id: str):
+    drug = await db.get_drug(id)
+    return drug 
+
+@app.get("/drugs/")
+async def get_drugs_api():
+    drugs = await db.get_drugs()
+    return drugs
