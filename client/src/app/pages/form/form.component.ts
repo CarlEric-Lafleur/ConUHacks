@@ -80,7 +80,7 @@ export class FormComponent {
     } else {
       this.userService.updatePrescription(this.index, this.prescription);
     }
-    this.userService.showSuccessNotification("Prescription saved successfully");
+    this.userService.showSuccessNotification('Prescription saved successfully');
     this.router.navigate([AppPages.Home]);
   }
 

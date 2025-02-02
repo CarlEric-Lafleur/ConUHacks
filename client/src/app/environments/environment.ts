@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   ServiceWorker: true,
-  serverUrl: 'http://46.202.178.155:8000',
+  serverUrl: 'https://srv652117.hstgr.cloud',
   webSocketUrl: 'localhost:3000',
   firebaseConfig: {
     apiKey: 'AIzaSyD7d6N-J2vMLA2YBLPNxrccYX5IAdvHQ0I',

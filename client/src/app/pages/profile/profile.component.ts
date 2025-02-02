@@ -15,38 +15,18 @@ import {
   styleUrl: './profile.component.scss',
 })
 export class ProfileComponent implements OnInit {
+  readonly textNotNullOrWhitespacePattern = '.*\\S.*';
   constructor(private userService: UserService, private router: Router) {}
   public phoneNumber = '';
   public email: string | null = '';
+  childrenInitialized = false;
 
-  public children: AppUser[] = [
-    {
-      displayName: 'John doe',
-      _id: '1',
-      prescriptions: [
-        {
-          drugName: 'mydrug',
-          schedule: [
-            {
-              isTaken: true,
-            } as Schedule,
-          ],
-        } as Prescription,
-        {
-          drugName: 'my other drug',
-          schedule: [
-            {
-              isTaken: false,
-            } as Schedule,
-          ],
-        } as Prescription,
-      ],
-    } as AppUser,
-  ];
+  public children: AppUser[] = [];
 
-  public onAbandon(child: string) {
-    this.children = this.children.filter((c) => c.displayName != child);
-  }
+  //   public onAbandon(child: string) {
+  //     this.children = this.children.filter((c) => c.displayName != child);
+  //   }
+
   ngOnInit(): void {
     this.phoneNumber = this.userService.getPhoneNumber();
     this.email = this.userService.getEmail();
@@ -54,7 +34,12 @@ export class ProfileComponent implements OnInit {
     if (!userId) {
       this.router.navigate(['login']);
     } else {
-      this.userService.fetchHelpees().subscribe((x) => (this.children = x));
+      this.userService.fetchHelpees().subscribe((x) => {
+        this.children = x;
+        this.childrenInitialized = true;
+      });
     }
   }
+
+  save() {}
 }

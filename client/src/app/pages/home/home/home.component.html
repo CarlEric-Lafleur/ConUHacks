@@ -8,19 +8,16 @@
 </div>
 } @else {
 <div class="container">
-  <div
+  <app-medicine-card
     *ngFor="
       let prescription of getPrescriptions();
       let i = index;
       trackBy: trackByDrugName
     "
-  >
-    <app-medicine-card
-      [prescription]="prescription"
-      [index]="i"
-      class="card"
-    ></app-medicine-card>
-  </div>
+    [prescription]="prescription"
+    [index]="i"
+    class="card"
+  ></app-medicine-card>
 
   <button mat-flat-button color="primary" (click)="navigateTo('form')">
     Add Medicine
