@@ -9,42 +9,62 @@ import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
 export class HttpCommunicationService {
-    private readonly baseUrl: string = environment.serverUrl;
+  private readonly baseUrl: string = environment.serverUrl;
 
-    constructor(
-        private readonly http: HttpClient,
-        private readonly notificationService: NotificationService,
-    ) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly notificationService: NotificationService
+  ) {}
 
-    basicGet<T>(route: string): Observable<T> {
-        return this.http.get<T>(`${this.baseUrl}/${route}`, {}).pipe(catchError(this.handleError<T>('basicGet')));
-    }
+  basicGet<T>(
+    route: string,
+    params?: { [param: string]: string | string[] }
+  ): Observable<T> {
+    return this.http
+      .get<T>(`${this.baseUrl}/${route}`, { params })
+      .pipe(catchError(this.handleError<T>('basicGet')));
+  }
 
-    basicPost<Req, Res>(route: string, body: Req): Observable<Res> {
-        return this.http.post<Res>(`${this.baseUrl}/${route}`, body).pipe(catchError(this.handleError<Res>('basicPost')));
-    }
+  basicPost<Req, Res>(route: string, body: Req): Observable<Res> {
+    return this.http
+      .post<Res>(`${this.baseUrl}/${route}`, body)
+      .pipe(catchError(this.handleError<Res>('basicPost')));
+  }
 
-    basicPut<Req, Res>(route: string, body: Req): Observable<Res> {
-        return this.http.put<Res>(`${this.baseUrl}/${route}`, body).pipe(catchError(this.handleError<Res>('basicPut')));
-    }
+  basicPut<Req, Res>(route: string, body: Req): Observable<Res> {
+    return this.http
+      .put<Res>(`${this.baseUrl}/${route}`, body)
+      .pipe(catchError(this.handleError<Res>('basicPut')));
+  }
 
-    basicPatch<Req, Res>(route: string, body: Partial<Req>): Observable<Res> {
-        return this.http.patch<Res>(`${this.baseUrl}/${route}`, body).pipe(catchError(this.handleError<Res>('basicPatch')));
-    }
+  basicPatch<Req, Res>(route: string, body: Partial<Req>): Observable<Res> {
+    return this.http
+      .patch<Res>(`${this.baseUrl}/${route}`, body)
+      .pipe(catchError(this.handleError<Res>('basicPatch')));
+  }
 
-    basicDelete<T>(route: string): Observable<T> {
-        return this.http.delete<T>(`${this.baseUrl}/${route}`).pipe(catchError(this.handleError<T>('basicDelete')));
-    }
+  basicDelete<T>(route: string): Observable<T> {
+    return this.http
+      .delete<T>(`${this.baseUrl}/${route}`)
+      .pipe(catchError(this.handleError<T>('basicDelete')));
+  }
 
-    private handleError<T>(request: string, result?: T): (error: Error) => Observable<T> {
-        return (error) => {
-            this.notificationService.showBanner(
-                new NotificationContent(`Erreur lors de l'accès au serveur: ${error.message}`, NotificationType.Error, ERROR_NOTIFICATION_DURATION),
-            );
-            return of(result as T);
-        };
-    }
+  private handleError<T>(
+    request: string,
+    result?: T
+  ): (error: Error) => Observable<T> {
+    return (error) => {
+      this.notificationService.showBanner(
+        new NotificationContent(
+          `Erreur lors de l'accès au serveur: ${error.message}`,
+          NotificationType.Error,
+          ERROR_NOTIFICATION_DURATION
+        )
+      );
+      return of(result as T);
+    };
+  }
 }

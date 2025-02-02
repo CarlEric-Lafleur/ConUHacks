@@ -29,7 +29,7 @@
 .chat-header {
   background-color: #007bff;
   color: white;
-  padding: 10px;
+  padding: 20px; /* Increased padding to make the header taller */
   text-align: center;
   position: relative;
 }
@@ -49,6 +49,29 @@
   flex: 1;
   padding: 10px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.chat-bubble {
+  max-width: 60%;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 10px;
+  color: white;
+}
+
+.chat-bubble.left {
+  background-color: #007bff;
+  align-self: flex-start;
+  border-radius: 10px 10px 10px 0;
+}
+
+.chat-bubble.right {
+  background-color: #28a745;
+  align-self: flex-end;
+  border-radius: 10px 10px 0 10px;
 }
 
 .chat-input {

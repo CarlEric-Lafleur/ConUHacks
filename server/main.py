@@ -71,7 +71,7 @@ async def create_upload_file(files: list[UploadFile]):
     return p.getJson(images)
 
 
-@app.post("/groq")
-async def query_groq(query: str):
+@app.get("/chat")
+async def query_groq(message: str):
     id = "123"  # CHANGEME
-    return g.chat(id, query)
+    return g.chat(id, message)

@@ -11,11 +11,21 @@
     </button>
     Chat
   </div>
-  <div class="chat-messages">
-    <p *ngFor="let message of messages">{{ message }}</p>
+  <div class="chat-messages" #chatMessages>
+    <div
+      *ngFor="let message of messages; let i = index"
+      [ngClass]="{ 'chat-bubble': true, left: i % 2 !== 0, right: i % 2 === 0 }"
+    >
+      {{ message }}
+    </div>
   </div>
   <div class="chat-input">
-    <input matInput [(ngModel)]="newMessage" placeholder="Type a message..." />
+    <input
+      matInput
+      [(ngModel)]="newMessage"
+      placeholder="Type a message..."
+      (keydown.enter)="sendMessage()"
+    />
     <button mat-raised-button color="primary" (click)="sendMessage()">
       Send
     </button>
