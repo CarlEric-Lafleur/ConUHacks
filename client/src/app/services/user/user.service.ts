@@ -65,7 +65,6 @@ export class UserService {
                     assistantInfo: newAssistant,
                     role: Role.Assistant,
                 };
-                console.log("newUser", newUser);
                 this.handleNewAssistantAccountSuccess(newUser);
             })
             .catch((error) => {
@@ -123,7 +122,6 @@ export class UserService {
             return;
         }
         this.userCommunicationService.createUser(user).subscribe((userData: AppUser) => {
-            console.log("userData", userData);
             this.user.next(userData);
             this.signOutAssistant();
         });
