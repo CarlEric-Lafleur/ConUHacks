@@ -41,12 +41,8 @@ import { NotificationComponent } from './notification/notification.component';
 import { FirstConnectionComponent } from './auth/auth-page/first-connection/first-connection.component';
 import { LoginComponent } from './auth/auth-page/login/login.component';
 import { FormsModule } from '@angular/forms';
-import { UserService } from './services/user/user.service';
-import { FirebaseService } from './services/firebase/firebase.service';
-import { HttpCommunicationService } from './services/http-communication/http-communication.service';
-import { NotificationService } from './services/notification/notification.service';
-import { UserCommunicationService } from './services/user-communication/user-communication.service';
-import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
+import { HeaderComponent } from './components/header/header.component';
 import { FormComponent } from './pages/form/form.component';
 import { CamButtonComponent } from './components/cam-button/cam-button.component';
 import { WebcamModule } from 'ngx-webcam';
@@ -95,6 +91,7 @@ const modules = [
     FirstConnectionComponent,
     LoginComponent,
     HomeComponent,
+    HeaderComponent
   ],
   imports: [
     ...modules,
