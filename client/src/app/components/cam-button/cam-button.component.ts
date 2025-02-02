@@ -73,20 +73,41 @@ export class CamButtonComponent {
     setTimeout(() => this.processVideo(src, dst, cap), 0);
   }
 
-  processIsFound(foundRect: any) {
+  processIsFound() {
     let canvas: any = document.getElementById('canvasOutput');
-
-    let image = canvas.toDataURL('image/jpeg');
-
-    foundRect.sort((a: any, b: any) => b.area - a.area);
-
-    console.log(image, foundRect.slice(0, 2));
     const formData = new FormData();
-    formData.append('images', image);
-    formData.append('images', foundRect[0].imageUrl);
-    formData.append('images', foundRect[1].imageUrl);
-    this.communicationService.basicPost('/posology', formData);
+    this.foundRect.sort((a: any, b: any) => b.area - a.area);
+
+    /* let blob1 = new Blob(['files', this.foundRect[0].imageUrl]);
+    let file1 = new File([blob1], 'filename', { type: 'image/png' });
+    formData.append('files', file1);
+
+    let blob2 = new Blob(['files', this.foundRect[1].imageUrl]);
+    let file2 = new File([blob2], 'filename', { type: 'image/png' });
+    formData.append('files', file2); */
+    //formData.append('files', this.foundRect[1].imageUrl);
+
+    canvas.toBlob((blob: any) => {
+      formData.append('files', blob);
+      this.communicationService
+        .basicPost('posology', formData)
+        .subscribe((x) => console.log(x));
+    });
+    /*     let image = canvas.toDataURL('image/jpeg');
+     */
+
+    /*     console.log(image, this.foundRect.slice(0, 2));
+     */
+    //formData.append('files', image);
+    /*   formData.append('files', this.foundRect[0].imageUrl);
+    formData.append('files', this.foundRect[1].imageUrl); */
+    /* this.communicationService
+      .basicPost('posology', formData)
+      .subscribe((x) => console.log(x));
+       */
+    this.foundRect = [];
   }
+  foundRect: any = [];
 
   processVideo(src: any, dst: any, cap: any) {
     const FPS = 30;
@@ -96,6 +117,7 @@ export class CamButtonComponent {
         src.delete();
         if (this.isFound) {
           this.isFound = false;
+          this.processIsFound();
         }
         dst.delete();
         return;
@@ -124,7 +146,7 @@ export class CamButtonComponent {
       );
 
       let count = 0;
-      const foundRect = [];
+      this.foundRect = [];
       for (let i = 0; i < contours.size(); i++) {
         const contour = contours.get(i);
         let approx = new cv.Mat();
@@ -161,20 +183,18 @@ export class CamButtonComponent {
           //   // Create a Blob and generate a downloadable link
           //   let blob = new Blob([byteArray], { type: 'image/jpeg' });
 
-          foundRect.push({ imageUrl, area });
+          this.foundRect.push({ imageUrl, area });
 
           let color = new cv.Scalar(0, 255, 0, 255); // Green color
           let point1 = new cv.Point(rect.x, rect.y);
           let point2 = new cv.Point(rect.x + rect.width, rect.y + rect.height);
           cv.rectangle(src, point1, point2, color, 2); // Draw rectangle
           count++;
-        } else {
-          approx.delete();
         }
+        approx.delete();
       }
-      if (count >= 2) {
+      if (count >= 4) {
         this.isFound = true;
-        this.processIsFound(foundRect);
       }
 
       cv.imshow('canvasOutput', src);

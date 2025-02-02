@@ -5,8 +5,19 @@ import io
 from models import AppUser
 from userDatabaseService import *
 from services.groq_service import GroqServices
+import numpy as np
+from starlette.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Frontend URL
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
 
 p = PosologyService()
 g = GroqServices()
@@ -52,8 +63,10 @@ async def delete_user_api(user_id: str):
 
 @app.post("/posology")
 async def create_upload_file(files: list[UploadFile]):
+    print(files)
     contents = [await file.read() for file in files]
-    images = [Image.open(io.BytesIO(content)) for content in contents]
+    images = [np.array(Image.open(io.BytesIO(content))) for content in contents]
+    images = [images[0] for i in range(3)]
     return p.getJson(images)
 
 
