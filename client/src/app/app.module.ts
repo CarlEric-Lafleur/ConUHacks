@@ -43,9 +43,13 @@ import { LoginComponent } from './auth/auth-page/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
+<<<<<<< Updated upstream
 import { FormComponent } from './pages/form/form.component';
 import { CamButtonComponent } from './components/cam-button/cam-button.component';
 import { WebcamModule } from 'ngx-webcam';
+=======
+import { ChatComponent } from './components/chat/chat.component';
+>>>>>>> Stashed changes
 
 const modules = [
   MatMenuModule,
@@ -81,6 +85,7 @@ const modules = [
 ];
 
 @NgModule({
+<<<<<<< Updated upstream
   declarations: [
     AppComponent,
     FormComponent,
@@ -93,6 +98,9 @@ const modules = [
     HomeComponent,
     HeaderComponent
   ],
+=======
+  declarations: [AppComponent, AuthPageComponent, MedicineCardComponent, NotificationComponent, FirstConnectionComponent, LoginComponent, HomeComponent, ChatComponent],
+>>>>>>> Stashed changes
   imports: [
     ...modules,
     BrowserModule,

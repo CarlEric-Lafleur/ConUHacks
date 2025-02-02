@@ -1,0 +1,23 @@
+<p>chat works!</p>
+
+<button *ngIf="!isOpen" mat-fab class="chat-button" (click)="toggleChat()">
+  <mat-icon>chat</mat-icon>
+</button>
+
+<div *ngIf="isOpen" class="chat-window">
+  <div class="chat-header">
+    <button mat-icon-button class="back-button" (click)="toggleChat()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    Chat
+  </div>
+  <div class="chat-messages">
+    <p *ngFor="let message of messages">{{ message }}</p>
+  </div>
+  <div class="chat-input">
+    <input matInput [(ngModel)]="newMessage" placeholder="Type a message..." />
+    <button mat-raised-button color="primary" (click)="sendMessage()">
+      Send
+    </button>
+  </div>
+</div>

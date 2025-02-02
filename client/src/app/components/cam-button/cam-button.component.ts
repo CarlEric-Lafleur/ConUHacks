@@ -76,6 +76,7 @@ export class CamButtonComponent {
   processIsFound() {
     let canvas: any = document.getElementById('canvasOutput');
     const formData = new FormData();
+<<<<<<< Updated upstream
     this.foundRect.sort((a: any, b: any) => b.area - a.area);
 
     /* let blob1 = new Blob(['files', this.foundRect[0].imageUrl]);
@@ -106,6 +107,15 @@ export class CamButtonComponent {
       .subscribe((x) => console.log(x));
        */
     this.foundRect = [];
+=======
+    formData.append('images', image);
+    formData.append('images', foundRect[0].imageUrl);
+    formData.append('images', foundRect[1].imageUrl);
+    this.communicationService.basicPost(
+      'http://127.0.0.1:8000/posology',
+      formData
+    );
+>>>>>>> Stashed changes
   }
   foundRect: any = [];
 
