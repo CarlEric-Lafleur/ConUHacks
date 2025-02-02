@@ -51,6 +51,7 @@ class Prescription(BaseModel):
     drugName: str
     description: str
     quantity: int
+    isRenewable: bool
     doctorName: str
     expirationDate: datetime
     startDate: datetime

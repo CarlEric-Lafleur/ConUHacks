@@ -1,6 +1,7 @@
 export interface Prescription {
     id: string;
     drugName: string;
+    isRenewable: boolean;
     description: string;
     quantity: number;
     doctorName: string;
