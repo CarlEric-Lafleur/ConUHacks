@@ -161,6 +161,7 @@ export class UserService {
       .fetchUserById(user.uid)
       .subscribe((userData: AppUser) => {
         this.user.next(userData);
+        console.log(`Welcome ${userData.email}!`);
         this.showSuccessNotification(`Welcome ${user.email}!`);
         this.router.navigate([AppRoutes.Home]);
       });
@@ -182,6 +183,7 @@ export class UserService {
   }
 
   private handleNewAccountSuccess(user: AppUser) {
+    this.user.next(user);
     if (!user.email) {
       this.showErrorNotification(
         "Email could not be retrieved from the user's account"
@@ -191,7 +193,6 @@ export class UserService {
     this.userCommunicationService
       .createUser(user)
       .subscribe((userData: AppUser) => {
-        this.user.next(userData);
         this.showSuccessNotification(
           `Account created successfully! Welcome ${user.email}!`
         );
