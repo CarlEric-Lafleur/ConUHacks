@@ -10,7 +10,8 @@ const routes: Routes = [
   { path: '', redirectTo: AppPages.Home, pathMatch: 'full' },
   { path: AppPages.Home, component: HomeComponent },
   { path: AppPages.Login, component: AuthPageComponent },
-  { path: 'form', component: FormComponent },
+  { path: AppPages.takeDrug, component: FormComponent },
+  { path: AppPages.Form, component: FormComponent },
   { path: 'face', component: FaceComponent },
   { path: '**', redirectTo: AppPages.Home },
 ];

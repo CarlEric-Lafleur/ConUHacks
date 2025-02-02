@@ -6,6 +6,8 @@ import {
 } from '../../interfaces/prescription.interface';
 import { DAYS } from '../../constants/days.constants';
 
+const THREE_HOURS = 3 * 60 * 60 * 1000;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -27,12 +29,15 @@ export class DateService {
   getDateText(prescription: Prescription): string {
     prescription.schedule.sort((a, b) => this.compareSchedule(a, b));
     const nextConsumeDate = this.getNextConsumeDate(prescription);
+    console.log(nextConsumeDate);
     const now = new Date();
     const timeDifference = nextConsumeDate.getTime() - now.getTime();
 
     let timeLeft: string;
 
-    if (timeDifference <= 60 * 1000) {
+    if (timeDifference <= 0) {
+      return 'Take now';
+    } else if (timeDifference <= 60 * 1000) {
       timeLeft = '1 minute';
     } else if (timeDifference <= 60 * 60 * 1000) {
       timeLeft = `${Math.ceil(timeDifference / (60 * 1000))} minutes`;
@@ -47,18 +52,35 @@ export class DateService {
       : this.MMDDformat(nextConsumeDate.getTime());
   }
 
-  private getNextConsumeDate(prescription: Prescription): Date {
+  readyToTake(prescription: Prescription): boolean {
+    const nextConsumeDate = this.getNextConsumeDate(prescription);
     const now = new Date();
-    for (const schedule of prescription.schedule) {
-      const scheduleDate = this.getDateFromSchedule(schedule);
-      if (scheduleDate > now) {
-        return scheduleDate;
-      }
-    }
-    const firstSchedule = prescription.schedule[0];
-    const firstScheduleDate = this.getDateFromSchedule(firstSchedule);
-    firstScheduleDate.setDate(firstScheduleDate.getDate() + 7);
-    return firstScheduleDate;
+    const timeDifference = nextConsumeDate.getTime() - now.getTime();
+    return timeDifference <= 0;
+  }
+
+  private getNextConsumeDate(prescription: Prescription): Date {
+    // for (const schedule of prescription.schedule) {
+    //   const scheduleDate = this.getDateFromSchedule(schedule);
+    //   if (scheduleDate > now) {
+    //     return scheduleDate;
+    //   }
+    // }
+    // const firstSchedule = prescription.schedule[0];
+    // const firstScheduleDate = this.getDateFromSchedule(firstSchedule);
+    // firstScheduleDate.setDate(firstScheduleDate.getDate() + 7);
+    // return firstScheduleDate;
+    const now = new Date();
+
+    const new_pres = prescription.schedule.map((schedule) => {
+      return (
+        (this.getDateFromSchedule(schedule).getTime() +
+          THREE_HOURS -
+          now.getTime()) %
+        (7 * 24 * 60 * 60 * 1000)
+      );
+    });
+    return new Date(Math.min(...new_pres) + now.getTime() - THREE_HOURS);
   }
 
   private compareSchedule(a: Schedule, b: Schedule): number {
@@ -76,22 +98,42 @@ export class DateService {
 
   private getDateFromSchedule(schedule: Schedule): Date {
     const now = new Date();
-    const dayOffset = this.getDayOffset(schedule.day);
+
     const [hours, minutes] = schedule.time.split(':').map(Number);
+    const dayOffset = this.getDayOffset(schedule, hours, minutes);
     const scheduleDate = new Date(now);
+
     scheduleDate.setDate(now.getDate() + dayOffset);
     scheduleDate.setHours(hours, minutes, 0, 0);
+    // console.log(now);
+    // console.log(scheduleDate);
     return scheduleDate;
   }
 
-  private getDayOffset(day: Day): number {
-    if (day === Day.Everyday) {
-      return 0;
-    }
+  private getDayOffset(
+    schedule: Schedule,
+    hours: number,
+    minutes: number
+  ): number {
     const now = new Date();
+    const day = schedule.day;
+    if (day === Day.Everyday) {
+      return this.isMoreThanThreeHours(hours, minutes) ? 1 : 0;
+    }
+
     const today = now.getDay();
     const targetDay: number = DAYS.findIndex((d) => d === Day[day]);
+
     const dayOffset = (targetDay - today + 7) % 7;
     return dayOffset;
+  }
+
+  isMoreThanThreeHours(hours: number, minutes: number): boolean {
+    const now = new Date();
+    const now_hours = now.getHours();
+    const now_minutes = now.getMinutes();
+    return (
+      Math.abs(hours * 60 + minutes - (now_hours * 60 + now_minutes)) > 180
+    );
   }
 }

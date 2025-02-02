@@ -1,4 +1,5 @@
 import { Component, Renderer2 } from '@angular/core';
+import { CvService } from './services/cv.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component, Renderer2 } from '@angular/core';
   standalone: false,
 })
 export class AppComponent {
+  constructor(private cvService: CvService) {}
+
+  ngOnInit() {
+    this.cvService.init();
+  }
 }
