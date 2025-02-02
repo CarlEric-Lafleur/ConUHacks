@@ -1,5 +1,4 @@
 from database import get_user_collection, get_drug_collection
-from bson import ObjectId
 
 async def test_db_connection():
     try:
@@ -17,7 +16,7 @@ async def create_user(user_dict):
 
 # Get a user by ID
 async def get_user(user_id: str):
-    user = await get_user_collection().find_one({"_id":ObjectId(user_id)})
+    user = await get_user_collection().find_one({"_id":user_id})
     user["_id"] = str(user["_id"])
     return user
 
