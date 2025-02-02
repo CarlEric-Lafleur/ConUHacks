@@ -18,6 +18,10 @@ export class FormComponent {
     private router: Router
   ) {}
 
+  readonly textNotNullOrWhitespacePattern = '.*\\S.*';
+
+  prescription: Prescription = {} as Prescription;
+
   ngOnInit() {
     if (!this.prescriptionInfoService.prescription) {
       this.router.navigate([AppPages.Home]);
@@ -29,7 +33,7 @@ export class FormComponent {
     this.prescriptionInfoService.prescription = null;
   }
 
-  prescription: Prescription = {} as Prescription;
+  selectedTime: string = '';
 
   foundPrescription(posologyInfo: PosologyInfo) {
     this.prescription.drugName = posologyInfo.drug_name;
@@ -37,6 +41,7 @@ export class FormComponent {
     this.prescription.quantity = posologyInfo.quantity;
     this.prescription.startDate = posologyInfo.start_date;
     this.prescription.endDate = posologyInfo.end_date;
+    this.prescription.isRenewable = posologyInfo.renew;
     this.prescription.freq = {
       times: Number(posologyInfo.frequence),
       period: this.convertInterval(posologyInfo.interval),

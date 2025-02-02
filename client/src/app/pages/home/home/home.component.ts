@@ -27,6 +27,7 @@ export class HomeComponent {
       doctorName: 'Dr. Smith',
       expirationDate: '2023-12-31',
       startDate: '2025-02-01',
+      isRenewable: false,
       freq: {
         times: 1,
         period: Period.Day,
@@ -44,6 +45,7 @@ export class HomeComponent {
       doctorName: 'Dr. Johnson',
       expirationDate: '2023-12-31',
       startDate: '1733082512',
+      isRenewable: true,
       freq: {
         times: 2,
         period: Period.Week,
