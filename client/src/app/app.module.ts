@@ -49,8 +49,17 @@ import { WebcamModule } from 'ngx-webcam';
 import { ChatComponent } from './components/chat/chat.component';
 import { CamComponent } from './components/cam/cam.component';
 import { FaceComponent } from './pages/face/face.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { EditableTextComponent } from './components/editable-text/editable-text.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { TimepickerComponent } from './components/timepicker/timepicker.component';
 
 const modules = [
+  NgxMaterialTimepickerModule,
+  MatNativeDateModule,
+  MatDatepickerModule,
   MatMenuModule,
   MatBadgeModule,
   MatButtonModule,
@@ -98,6 +107,9 @@ const modules = [
     ChatComponent,
     CamComponent,
     FaceComponent,
+    TimepickerComponent,
+    ProfileComponent,
+    EditableTextComponent,
   ],
 
   imports: [

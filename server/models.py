@@ -51,6 +51,7 @@ class Prescription(BaseModel):
     drugName: str
     description: str
     quantity: int
+    isRenewable: bool
     doctorName: str
     expirationDate: datetime
     startDate: datetime
@@ -73,6 +74,7 @@ class AppUser(BaseModel):
     phoneNumber: str
     prescriptions: List[Prescription] = []
     assistMode: bool
+    role: str
     assistantInfo: Optional[AssistantInfo] = None
 
     class Config:

@@ -1,20 +1,23 @@
+<header class="header">
+  <div class="logo">
+    <span>Smartpill</span>
+  </div>
+</header>
+
 <div class="auth-container">
     <div class="auth-card">
-      <ng-container *ngIf="!isNewUser; else createAccountTemplate">
-        <h2>Login</h2>
+      @if(!isNewUser) {
         <app-login></app-login>
         <p class="auth-switch">
           Don't have an account? 
           <button mat-button (click)="toggleAuthMode()">Create a new account</button>
         </p>
-      </ng-container>
-      <ng-template #createAccountTemplate>
-        <h2>Create Account</h2>
+      } @else {
         <app-first-connection></app-first-connection>
         <p class="auth-switch">
           Already have an account? 
           <button mat-button (click)="toggleAuthMode()">Log in</button>
         </p>
-      </ng-template>
+      }
     </div>
   </div>

@@ -1,3 +1,73 @@
 <div class="col">
-  <app-cam-button class="app-cam-button"> </app-cam-button>
+  <app-cam-button
+    class="app-cam-button"
+    (foundPrescriptionEvent)="foundPrescription($event)"
+  >
+  </app-cam-button>
+  <div class="form-container">
+    <mat-form-field class="form-field">
+      <mat-label>Drug name</mat-label>
+      <input
+        matInput
+        [(ngModel)]="prescription.drugName"
+        type="string"
+        required
+        [pattern]="textNotNullOrWhitespacePattern"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        [(ngModel)]="prescription.description"
+        type="text"
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Doctor name</mat-label>
+      <input
+        matInput
+        [(ngModel)]="prescription.doctorName"
+        type="string"
+        [pattern]="textNotNullOrWhitespacePattern"
+      />
+    </mat-form-field>
+
+    <div class="renewable-container">
+      <mat-form-field>
+        <mat-label>Number of doses</mat-label>
+        <input
+          matInput
+          type="number"
+          required="true"
+          [(ngModel)]="prescription.quantity"
+          placeholder="Number of doses"
+        />
+      </mat-form-field>
+      <div class="renewable-checkbox-container">
+        <span>Can be renewed?</span>
+        <mat-slide-toggle [(ngModel)]="prescription.isRenewable">
+        </mat-slide-toggle>
+      </div>
+    </div>
+
+    <mat-form-field class="form-field">
+      <mat-label>End date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="pickerEnd"
+        [(ngModel)]="prescription.endDate"
+      />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="pickerEnd"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #pickerEnd></mat-datepicker>
+    </mat-form-field>
+
+    <app-timepicker></app-timepicker>
+  </div>
 </div>
