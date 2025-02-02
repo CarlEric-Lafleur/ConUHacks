@@ -5,6 +5,6 @@ import { Prescription } from '../interfaces/prescription.interface';
   providedIn: 'root',
 })
 export class PrescriptionInfoService {
-  prescription: Prescription | null = null;
+  prescription: Prescription | null | "new" = null;
   constructor() {}
 }
