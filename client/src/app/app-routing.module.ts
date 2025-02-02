@@ -4,12 +4,14 @@ import { FormComponent } from './pages/form/form.component';
 import { AppPages } from './enums/app-pages.enum';
 import { AuthPageComponent } from './auth/auth-page/auth-page.component';
 import { HomeComponent } from './pages/home/home/home.component';
+import { FaceComponent } from './pages/face/face.component';
 
 const routes: Routes = [
   { path: '', redirectTo: AppPages.Home, pathMatch: 'full' },
   { path: AppPages.Home, component: HomeComponent },
   { path: AppPages.Login, component: AuthPageComponent },
   { path: 'form', component: FormComponent },
+  { path: 'face', component: FaceComponent },
   { path: '**', redirectTo: AppPages.Home },
 ];
 
