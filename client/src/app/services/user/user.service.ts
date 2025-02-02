@@ -11,6 +11,7 @@ import { AppUser, AssistantInfo, Role } from '../../interfaces/user.interface';
 import { User } from 'firebase/auth';
 import { BehaviorSubject } from 'rxjs';
 import { user } from '@angular/fire/auth';
+import { Prescription } from '../../interfaces/prescription.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -76,6 +77,26 @@ export class UserService {
           AUTHENTICATION_ERROR_MESSAGE.get(error.code) || 'Erreur inconnue';
         this.showErrorNotification(errorMessage);
       });
+  }
+
+  addPrescription(prescription: Prescription) {
+    const user = this.user.getValue();
+    if (!user) {
+      this.showErrorNotification('User not found');
+      return;
+    }
+    user.prescriptions.push(prescription);
+    this.updateAccount(user);
+  }
+
+  updatePrescription(index: number, prescription: Prescription) {
+    const user = this.user.getValue();
+    if (!user) {
+      this.showErrorNotification('User not found');
+      return;
+    }
+    user.prescriptions[index] = prescription;
+    this.updateAccount(user);
   }
 
   updateAccount(user: AppUser) {
@@ -171,7 +192,7 @@ export class UserService {
       });
   }
 
-  private showSuccessNotification(messageSuccess: string) {
+  showSuccessNotification(messageSuccess: string) {
     this.notificationService.showBanner({
       message: messageSuccess,
       type: NotificationType.Success,

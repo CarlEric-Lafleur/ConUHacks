@@ -9,6 +9,7 @@ import {
 import { PrescriptionInfoService } from '../../services/prescription-info.service';
 import { Router } from '@angular/router';
 import { AppPages } from '../../enums/app-pages.enum';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-form',
@@ -22,7 +23,8 @@ export class FormComponent {
   private index: number = -1;
   constructor(
     private prescriptionInfoService: PrescriptionInfoService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {}
 
   readonly textNotNullOrWhitespacePattern = '.*\\S.*';
@@ -71,7 +73,16 @@ export class FormComponent {
     }
   }
 
-  save() {}
+  save() {
+    this.validatePrescription();
+    if (this.isNewPrescription) {
+      this.userService.addPrescription(this.prescription);
+    } else {
+      this.userService.updatePrescription(this.index, this.prescription);
+    }
+    this.userService.showSuccessNotification("Prescription saved successfully");
+    this.router.navigate([AppPages.Home]);
+  }
 
   ngOnDestroy() {
     this.prescriptionInfoService.setPrescription('new', -1);
@@ -131,6 +142,27 @@ export class FormComponent {
         return Period.Week;
       case 'jour':
         return Period.Day;
+    }
+  }
+
+  private validatePrescription() {
+    if (this.prescription.drugName === '') {
+      this.userService.showErrorNotification('Drug name is required');
+    }
+    if (this.prescription.quantity === 0) {
+      this.userService.showErrorNotification('Quantity is required');
+    }
+    if (this.prescription.startDate === '') {
+      this.userService.showErrorNotification('Start date is required');
+    }
+    if (this.prescription.endDate === '') {
+      this.userService.showErrorNotification('End date is required');
+    }
+    if (this.prescription.freq.times === 0) {
+      this.userService.showErrorNotification('Frequency is required');
+    }
+    if (this.prescription.schedule.length === 0) {
+      this.userService.showErrorNotification('Schedule is required');
     }
   }
 }
