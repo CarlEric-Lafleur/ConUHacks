@@ -5,16 +5,20 @@ import io
 from models import AppUser
 from userDatabaseService import *
 from services.groq_service import GroqServices
+from dotenv import load_dotenv
 
 app = FastAPI()
 
 p = PosologyService()
 g = GroqServices()
 
+load_dotenv()
+
+
 
 @app.get("/")
-def read_root():
-    response = test_db_connection()
+async def read_root():
+    response = await test_db_connection()
     return response
 
 
@@ -33,14 +37,12 @@ async def create_user_api(user: AppUser):
 @app.get("/users/{user_id}")
 async def get_user_api(user_id: str):
     user = await get_user(user_id)
-
     return user
 
 
 @app.put("/users/{user_id}")
 async def update_user_api(user_id: str, user_data: dict):
     updated = await update_user(user_id, user_data)
-
     return {"message": "User updated successfully"}
 
 

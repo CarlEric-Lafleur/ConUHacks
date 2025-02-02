@@ -65,7 +65,7 @@ class AssistantInfo(BaseModel):
 
 
 class AppUser(BaseModel):
-    id: Optional[PyObjectId] = Field(alias="_id", default=None)
+    id: str = Field(alias="_id", default=None)
     email: EmailStr
     displayName: str
     phoneNumber: str
