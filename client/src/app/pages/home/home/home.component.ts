@@ -1,7 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  Prescription,
-} from '../../../interfaces/prescription.interface';
+import { Prescription } from '../../../interfaces/prescription.interface';
 import { DateService } from '../../../services/date/date.service';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../../services/user/user.service';
@@ -17,7 +15,11 @@ import { Role } from '../../../interfaces/user.interface';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
-  constructor(private dateService: DateService, private userService: UserService, private router: Router) {}
+  constructor(
+    private dateService: DateService,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   prescriptions: Prescription[] = [];
 

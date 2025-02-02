@@ -51,3 +51,16 @@
   font-weight: bold;
   padding-bottom: 30px;
 }
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  padding-bottom: 50px;
+}
+
+.save-button {
+  width: 80%;
+}

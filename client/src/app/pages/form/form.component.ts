@@ -33,6 +33,8 @@ export class FormComponent {
     this.prescription = this.prescriptionInfoService.prescription!;
   }
 
+  save() {}
+
   ngOnDestroy() {
     this.prescriptionInfoService.prescription = null;
   }
@@ -81,6 +83,8 @@ export class FormComponent {
       times: Number(posologyInfo.frequence),
       period: this.convertInterval(posologyInfo.interval),
     };
+    this.onBlurFreq();
+    this.onSelectChange();
   }
 
   convertInterval(interval: Interval): Period {
