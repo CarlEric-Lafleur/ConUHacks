@@ -1,27 +1,8 @@
-<!-- <webcam #webcamElement [height]="500" [width]="500" *ngIf="true"> </webcam>
-<canvas #webcamCanvas width="640" height="480"></canvas> -->
-<!-- <canvas #canvas></canvas>
-  -->
-<tr>
-  <video
-    id="videoInput"
-    width="500"
-    height="500"
-    [style.visibility]="'hidden'"
-  ></video>
-</tr>
-<canvas id="canvasOutput" [height]="500" [width]="500"></canvas>
-<div (click)="toggleCam()">Autocapture</div>
-
-<!-- <div>
-  <div class="inputoutput">
-    <img id="imageSrc" alt="No Image" />
-    <div class="caption">
-      imageSrc <input type="file" id="fileInput" name="file" />
-    </div>
-  </div>
-  <div class="inputoutput">
-    <canvas id="canvasOutput"></canvas>
-    <div class="caption">canvasOutput</div>
-  </div>
-</div> -->
+<div *ngIf="showWebcam">
+  <app-cam></app-cam>
+</div>
+<div class="container">
+  <button mat-fab extended (click)="toggleCam()" class="cam-button">
+    <mat-icon>photo_camera</mat-icon>Fill automatically
+  </button>
+</div>

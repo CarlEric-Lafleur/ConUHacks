@@ -47,6 +47,7 @@ import { FormComponent } from './pages/form/form.component';
 import { CamButtonComponent } from './components/cam-button/cam-button.component';
 import { WebcamModule } from 'ngx-webcam';
 import { ChatComponent } from './components/chat/chat.component';
+import { CamComponent } from './components/cam/cam.component';
 
 const modules = [
   MatMenuModule,
@@ -94,6 +95,7 @@ const modules = [
     HomeComponent,
     HeaderComponent,
     ChatComponent,
+    CamComponent,
   ],
 
   imports: [
