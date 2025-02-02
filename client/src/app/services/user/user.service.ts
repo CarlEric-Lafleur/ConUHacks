@@ -104,6 +104,7 @@ export class UserService {
       .updateUser(user)
       .subscribe((userData: AppUser) => {
         this.user.next(userData);
+        console.log('Account updated successfully!');
         this.showSuccessNotification('Account updated successfully!');
       });
   }

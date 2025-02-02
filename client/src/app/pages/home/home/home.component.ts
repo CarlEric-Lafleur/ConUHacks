@@ -44,8 +44,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   navigateTo(route: string): void {
-    if (route === "form") {
-      this.prescriptionService.setPrescription("new", -1);
+    if (route === 'form') {
+      this.prescriptionService.setPrescription('new', -1);
     }
     this.router.navigate([route]);
   }
@@ -54,12 +54,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.userService.user.subscribe((user) => {
       if (!user) return;
       if (user.role === Role.Assistant) {
-        this.userService.fetchPrescriptionsRelatedToAssistant(user.email).subscribe((users) => {
-          this.prescriptions = users.map((u) => u.prescriptions).flat();
-          console.log(this.prescriptions);
-        });
+        this.userService
+          .fetchPrescriptionsRelatedToAssistant(user.email)
+          .subscribe((users) => {
+            console.log(users);
+            this.prescriptions = users.map((u) => u.prescriptions).flat();
+            console.log(this.prescriptions);
+          });
       } else {
-        this.prescriptions = user.prescriptions;
+        this.userService.user.subscribe((user) => {
+          if (!user) return;
+          this.prescriptions = user.prescriptions;
+        });
       }
     });
   }
