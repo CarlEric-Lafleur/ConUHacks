@@ -85,6 +85,7 @@ export class UserService {
       this.showErrorNotification('User not found');
       return;
     }
+    console.log(user);
     user.prescriptions.push(prescription);
     this.updateAccount(user);
   }

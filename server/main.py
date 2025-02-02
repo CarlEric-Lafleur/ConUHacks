@@ -53,7 +53,8 @@ async def get_user_api(user_id: str):
 @app.put("/users/{user_id}")
 async def update_user_api(user_id: str, user_data: dict):
     await db.update_user(user_id, user_data)
-    return {"message": "User updated successfully"}
+    ret = get_user_api(user_id)
+    return ret
 
 
 @app.delete("/users/{user_id}")

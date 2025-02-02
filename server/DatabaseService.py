@@ -43,7 +43,7 @@ async def push_prescription(user_id: str, prescription: dict):
 
 
 async def delete_user(user_id: str):
-    result = await get_user_collection().delete_one({"_id": ObjectId(user_id)})
+    result = await get_user_collection().delete_one({"_id": user_id})
     return result.deleted_count 
 
 async def create_drug(drug_dict):
@@ -51,7 +51,7 @@ async def create_drug(drug_dict):
     return str(res.inserted_id)
 
 async def get_drug(id: str):
-    drug = await get_drug_collection().find_one({"_id":ObjectId(id)})
+    drug = await get_drug_collection().find_one({"_id":id})
     drug["_id"] = str(drug["_id"]) 
     return drug
 
