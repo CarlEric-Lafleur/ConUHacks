@@ -18,7 +18,7 @@ class GroqServices:
         ]
 
     def chat(self, id, chat):
-        meds = [{"medication": "novacaine"}]  # TODO change
+        meds = [{"medication": "methamphetamines"}]  # TODO change
         if id not in self.chats:
             self.init_user_chats(id)
         self.chats[id].append(

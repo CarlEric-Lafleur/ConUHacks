@@ -46,6 +46,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FormComponent } from './pages/form/form.component';
 import { CamButtonComponent } from './components/cam-button/cam-button.component';
 import { WebcamModule } from 'ngx-webcam';
+import { ChatComponent } from './components/chat/chat.component';
 
 const modules = [
   MatMenuModule,
@@ -91,8 +92,10 @@ const modules = [
     FirstConnectionComponent,
     LoginComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    ChatComponent,
   ],
+
   imports: [
     ...modules,
     BrowserModule,

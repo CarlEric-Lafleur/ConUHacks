@@ -22,6 +22,8 @@ export enum DrugType{
 export interface Schedule {
     day: Day;
     time: string;
+    hasBeenNotified: boolean;
+    isTaken: boolean;
 }
 
 export interface Frequency {
