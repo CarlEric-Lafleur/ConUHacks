@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1738503532737,
+  "timestamp": 1738510780562,
   "index": "/ConUHacks/index.html",
   "assetGroups": [
     {
@@ -15,7 +15,7 @@
         "/ConUHacks/chunk-TEEXDKKO.js",
         "/ConUHacks/favicon.ico",
         "/ConUHacks/index.html",
-        "/ConUHacks/main-4HYPU2KW.js",
+        "/ConUHacks/main-7KMOLR4B.js",
         "/ConUHacks/manifest.webmanifest",
         "/ConUHacks/opencv.js",
         "/ConUHacks/polyfills-FFHMD2TL.js",
@@ -56,8 +56,8 @@
     "/ConUHacks/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
     "/ConUHacks/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
     "/ConUHacks/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
-    "/ConUHacks/index.html": "be24e80c9b04cbd16b5ae702e2e8679069aedf3b",
-    "/ConUHacks/main-4HYPU2KW.js": "57c03bc59c2a7db1eddfb3b44210651767e2c75a",
+    "/ConUHacks/index.html": "257864eda98da952555432e762e4155742d7ca46",
+    "/ConUHacks/main-7KMOLR4B.js": "2011fa5df1651f95a324b46fe819ae28c2ee6c57",
     "/ConUHacks/manifest.webmanifest": "9d9e5001243d435812179b71c6eeb37b1f5c9b9e",
     "/ConUHacks/opencv.js": "d7cd0baabff76c85049aa68260c8726e52820416",
     "/ConUHacks/polyfills-FFHMD2TL.js": "f49b49a155bc7d192db62a4c15d0a612b460a667",
