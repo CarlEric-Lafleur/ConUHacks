@@ -30,7 +30,12 @@ export class FormComponent {
     if (!this.prescriptionInfoService.prescription) {
       this.router.navigate([AppPages.Home]);
     }
-    this.prescription = this.prescriptionInfoService.prescription!;
+    const value = this.prescriptionInfoService.prescription!;
+    if (value == "new") {
+      this.prescription = {} as Prescription;
+    } else {
+      this.prescription = value;
+    }
   }
 
   save() {}

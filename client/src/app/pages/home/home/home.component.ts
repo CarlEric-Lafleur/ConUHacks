@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { UserService } from '../../../services/user/user.service';
 import { Router } from '@angular/router';
 import { Role } from '../../../interfaces/user.interface';
+import { PrescriptionInfoService } from '../../../services/prescription-info.service';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private dateService: DateService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private prescriptionService: PrescriptionInfoService
   ) {}
 
   prescriptions: Prescription[] = [];
@@ -38,6 +40,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   navigateTo(route: string): void {
+    if (route === "form") {
+      this.prescriptionService.prescription = "new";
+    }
     this.router.navigate([route]);
   }
 
