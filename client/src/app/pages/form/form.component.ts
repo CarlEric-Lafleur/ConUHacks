@@ -10,6 +10,7 @@ import { PrescriptionInfoService } from '../../services/prescription-info.servic
 import { Router } from '@angular/router';
 import { AppPages } from '../../enums/app-pages.enum';
 import { UserService } from '../../services/user/user.service';
+import { Role } from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-form',
@@ -43,7 +44,6 @@ export class FormComponent {
     if (value == 'new') {
       this.isNewPrescription = true;
       this.prescription = {
-        id: '',
         doctorName: '',
         expirationDate: '',
         instructions: '',
@@ -76,7 +76,16 @@ export class FormComponent {
   save() {
     this.validatePrescription();
     if (this.isNewPrescription) {
-      this.userService.addPrescription(this.prescription);
+      console.log(this.prescription);
+      if(this.userService.user.value?.role === Role.Assistant) {
+        this.userService.fetchHelpees().subscribe((users) => {
+          users[1].prescriptions.push(this.prescription);
+              console.log(users[1]);
+              this.userService.updateAccount(users[1]);
+          });
+      } else {
+        this.userService.addPrescription(this.prescription);
+      }
     } else {
       this.userService.updatePrescription(this.index, this.prescription);
     }
@@ -151,12 +160,6 @@ export class FormComponent {
     }
     if (this.prescription.quantity === 0) {
       this.userService.showErrorNotification('Quantity is required');
-    }
-    if (this.prescription.startDate === '') {
-      this.userService.showErrorNotification('Start date is required');
-    }
-    if (this.prescription.endDate === '') {
-      this.userService.showErrorNotification('End date is required');
     }
     if (this.prescription.freq.times === 0) {
       this.userService.showErrorNotification('Frequency is required');

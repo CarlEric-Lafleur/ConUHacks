@@ -99,6 +99,11 @@ export class UserService {
     this.updateAccount(user);
   }
 
+
+  pushPrescription(prescription: Prescription, userId: string) {
+    this.userCommunicationService.pushDrug(userId, prescription).subscribe();
+  }
+
   updateAccount(user: AppUser) {
     this.userCommunicationService
       .updateUser(user)
