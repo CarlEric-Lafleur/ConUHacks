@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Interval, PosologyInfo } from '../../interfaces/posology-info';
 import {
   Day,
+  DrugType,
   Period,
   Prescription,
 } from '../../interfaces/prescription.interface';
@@ -27,12 +28,37 @@ export class FormComponent {
   prescription: Prescription = {} as Prescription;
 
   ngOnInit() {
+    console.log(this.prescriptionInfoService.prescription);
     if (!this.prescriptionInfoService.prescription) {
       this.router.navigate([AppPages.Home]);
     }
     const value = this.prescriptionInfoService.prescription!;
-    if (value == "new") {
-      this.prescription = {} as Prescription;
+    if (value == 'new') {
+      this.prescription = {
+        id: '',
+        doctorName: '',
+        expirationDate: '',
+        instructions: '',
+        type: DrugType.PILL,
+        drugName: '',
+        description: '',
+        quantity: 0,
+        startDate: '',
+        endDate: '',
+        isRenewable: false,
+        freq: {
+          times: 1,
+          period: Period.Day,
+        },
+        schedule: [
+          {
+            day: Day.Everyday,
+            time: '10:00',
+            hasBeenNotified: false,
+            isTaken: false,
+          },
+        ],
+      } as Prescription;
     } else {
       this.prescription = value;
     }

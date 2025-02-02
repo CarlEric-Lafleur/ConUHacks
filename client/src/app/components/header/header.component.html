@@ -1,11 +1,8 @@
 <header class="header">
-  <div class="logo">
+  <div class="logo" (click)="navigateTo('home')">
     <span>Smartpill</span>
   </div>
   <nav class="nav-links">
-    <button mat-button class="nav-btn" (click)="navigateTo('home')">
-      <i class="fas fa-home icon-white"></i>
-    </button>
     @if (role !== ROLES.Assisted) {
     <button mat-button class="nav-btn" (click)="navigateTo('profile')">
       <i class="fas fa-user icon-white"></i>
