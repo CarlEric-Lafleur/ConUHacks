@@ -31,13 +31,13 @@ async def get_users():
 
 async def update_user(user_id: str, update_data: dict):
     result = await get_user_collection().update_one(
-        {"_id": ObjectId(user_id)}, {"$set": update_data}
+        {"_id": user_id}, {"$set": update_data}
     )
     return result.modified_count > 1
 
 async def push_prescription(user_id: str, prescription: dict):
     result = await get_user_collection().update_one(
-        {"_id": ObjectId(user_id)}, {"$push": {"prescriptions": prescription}}
+        {"_id": user_id}, {"$push": {"prescriptions": prescription}}
     )
     return result.modified_count > 1
 
