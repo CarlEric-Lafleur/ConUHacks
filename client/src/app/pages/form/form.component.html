@@ -35,6 +35,44 @@
       />
     </mat-form-field>
 
+    <div class="frequency-container">
+      <mat-form-field>
+        <mat-label>Frequency</mat-label>
+        <input
+          matInput
+          type="number"
+          required="true"
+          min="1"
+          [(ngModel)]="prescription.freq.times"
+          (blur)="onBlurFreq()"
+          placeholder="Frequency"
+        />
+      </mat-form-field>
+      <span
+        [style.padding-bottom.px]="20"
+        [style.font-weight]="'bold'"
+        [style.font-size.px]="18"
+        >times a</span
+      >
+      <mat-form-field appearance="outline">
+        <mat-label for="period">Period</mat-label>
+        <mat-select
+          required="true"
+          [(ngModel)]="prescription.freq.period"
+          name="period"
+          (selectionChange)="onSelectChange()"
+        >
+          <mat-option *ngFor="let option of periodOptions" [value]="option">{{
+            option
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    @for (schedule of prescription.schedule; track prescription.drugName){
+    <app-schedule [schedule]="schedule"></app-schedule>
+    }
+
     <div class="renewable-container">
       <mat-form-field>
         <mat-label>Number of doses</mat-label>
@@ -67,7 +105,5 @@
       ></mat-datepicker-toggle>
       <mat-datepicker #pickerEnd></mat-datepicker>
     </mat-form-field>
-
-    <app-timepicker></app-timepicker>
   </div>
 </div>
