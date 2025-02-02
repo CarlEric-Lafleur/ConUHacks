@@ -7,14 +7,12 @@
 <div class="auth-container">
     <div class="auth-card">
       @if(!isNewUser) {
-        <h2>Login</h2>
         <app-login></app-login>
         <p class="auth-switch">
           Don't have an account? 
           <button mat-button (click)="toggleAuthMode()">Create a new account</button>
         </p>
       } @else {
-        <h2>Create Account</h2>
         <app-first-connection></app-first-connection>
         <p class="auth-switch">
           Already have an account? 

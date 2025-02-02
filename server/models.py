@@ -74,6 +74,7 @@ class AppUser(BaseModel):
     phoneNumber: str
     prescriptions: List[Prescription] = []
     assistMode: bool
+    role: str
     assistantInfo: Optional[AssistantInfo] = None
 
     class Config:

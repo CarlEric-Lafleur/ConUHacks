@@ -1,0 +1,43 @@
+.editable-container {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.text {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.edit-icon {
+  font-size: 18px;
+  color: gray;
+}
+
+.edit-mode {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+input {
+  border: 1px solid #ccc;
+  padding: 4px;
+  font-size: 16px;
+  outline: none;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.confirm {
+  color: green;
+}
+
+.cancel {
+  color: red;
+}
