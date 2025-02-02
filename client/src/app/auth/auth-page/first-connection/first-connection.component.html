@@ -27,15 +27,17 @@
   
     <div *ngIf="user.assistMode">
       <h3>Please create an account for the assistant</h3>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Assistant Email</mat-label>
+        <input matInput [(ngModel)]="assistantInfo.email" name="assistantEmail" required />
+      </mat-form-field>
+      
       <mat-form-field appearance="outline">
         <mat-label>Assistant Name</mat-label>
         <input matInput [(ngModel)]="assistantInfo.name" name="assistantName" required />
       </mat-form-field>
   
-      <mat-form-field appearance="outline">
-        <mat-label>Assistant Email</mat-label>
-        <input matInput [(ngModel)]="assistantInfo.email" name="assistantEmail" required />
-      </mat-form-field>
   
       <mat-form-field appearance="outline">
         <mat-label>Assistant Phone Number</mat-label>

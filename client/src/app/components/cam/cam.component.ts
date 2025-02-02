@@ -3,6 +3,7 @@ import { HttpCommunicationService } from '../../services/http-communication/http
 import { CvService } from '../../services/cv.service';
 import { Prescription } from '../../interfaces/prescription.interface';
 import { PosologyInfo } from '../../interfaces/posology-info';
+import { Subscription } from 'rxjs';
 
 declare var cv: any;
 @Component({
@@ -14,8 +15,8 @@ declare var cv: any;
 })
 export class CamComponent {
   public streaming = true;
+  public loading = false; // Add loading state
 
-  @Output() waitingForResponse = new EventEmitter<boolean>();
   @Output() foundPrescriptionEvent = new EventEmitter<PosologyInfo>();
 
   constructor(
@@ -63,16 +64,15 @@ export class CamComponent {
     let canvas: any = document.getElementById('canvasOutput');
     const formData = new FormData();
     this.foundRect.sort((a: any, b: any) => b.area - a.area);
-
+    this.loading = true;
     canvas.toBlob((blob: any) => {
       formData.append('files', blob);
-      this.waitingForResponse.emit(true);
       this.communicationService
         .basicPost('posology', formData)
         .subscribe((x) => {
-          console.log(x);
+          this.stopCamera();
+          this.loading = false;
           this.foundPrescriptionEvent.emit(x as PosologyInfo);
-          this.waitingForResponse.emit(false);
         });
     });
 
@@ -154,7 +154,7 @@ export class CamComponent {
         }
         approx.delete();
       }
-      if (count >= 5) {
+      if (count >= 1) {
         this.isFound = true;
       }
 
