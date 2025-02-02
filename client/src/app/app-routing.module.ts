@@ -10,12 +10,15 @@ import { authGuard } from './auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: AppPages.Login, pathMatch: 'full' },
-  { path: AppPages.Home, component: HomeComponent, canActivate: [authGuard]},
+  { path: AppPages.Home, component: HomeComponent, canActivate: [authGuard] },
   { path: AppPages.Login, component: AuthPageComponent },
-  { path: AppPages.takeDrug, component: FormComponent, canActivate: [authGuard] },
   { path: AppPages.Form, component: FormComponent, canActivate: [authGuard] },
-  { path: AppPages.Face, component: FaceComponent, canActivate: [authGuard] },
-  { path: AppPages.Profile, component: ProfileComponent , canActivate: [authGuard]},
+  { path: AppPages.Face, component: FaceComponent },
+  {
+    path: AppPages.Profile,
+    component: ProfileComponent,
+    canActivate: [authGuard],
+  },
   { path: '**', redirectTo: AppPages.Login },
 ];
 

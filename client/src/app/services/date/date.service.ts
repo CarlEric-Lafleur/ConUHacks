@@ -59,6 +59,27 @@ export class DateService {
     return timeDifference <= 0;
   }
 
+  takeNow(prescription: Prescription) {
+    this.getNextConsume(prescription);
+  }
+
+  private getNextConsume(prescription: Prescription): void {
+    const now = new Date();
+
+    const new_pres = prescription.schedule.map((schedule) => {
+      return {
+        time:
+          (this.getDateFromSchedule(schedule).getTime() +
+            THREE_HOURS -
+            now.getTime()) %
+          (7 * 24 * 60 * 60 * 1000),
+        schedule,
+      };
+    });
+    const nextConsume = new_pres.reduce((a, b) => (a.time < b.time ? a : b));
+    nextConsume.schedule.isTaken = true;
+  }
+
   private getNextConsumeDate(prescription: Prescription): Date {
     // for (const schedule of prescription.schedule) {
     //   const scheduleDate = this.getDateFromSchedule(schedule);
