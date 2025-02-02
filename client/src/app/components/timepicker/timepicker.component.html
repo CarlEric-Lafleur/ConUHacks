@@ -5,7 +5,8 @@
     [ngxTimepicker]="picker"
     readonly
     [(ngModel)]="selectedTime"
-    (ngModelChange)="timeChange($event)"
+    (ngModelChange)="timeChange()"
+    #input
   />
   <ngx-material-timepicker #picker [format]="24"></ngx-material-timepicker>
 </mat-form-field>
