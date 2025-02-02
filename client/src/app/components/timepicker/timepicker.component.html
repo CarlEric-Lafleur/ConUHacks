@@ -1,0 +1,11 @@
+<mat-form-field appearance="fill" class="form-field">
+  <mat-label>Select Time</mat-label>
+  <input
+    matInput
+    [ngxTimepicker]="picker"
+    readonly
+    [(ngModel)]="selectedTime"
+    (ngModelChange)="timeChange($event)"
+  />
+  <ngx-material-timepicker #picker [format]="24"></ngx-material-timepicker>
+</mat-form-field>

@@ -9,3 +9,32 @@
 .app-cam-button {
   width: 100%;
 }
+
+.form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.form-field {
+  width: 80%;
+}
+
+.renewable-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  gap: 10px;
+  justify-content: center;
+}
+
+.renewable-checkbox-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
