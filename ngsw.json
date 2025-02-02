@@ -1,7 +1,7 @@
 {
   "configVersion": 1,
-  "timestamp": 1738493646265,
-  "index": "/conuhacks/client/index.html",
+  "timestamp": 1738493743794,
+  "index": "/index.html",
   "assetGroups": [
     {
       "name": "app",
@@ -11,15 +11,15 @@
         "ignoreVary": true
       },
       "urls": [
-        "/conuhacks/client/chunk-247VMTNP.js",
-        "/conuhacks/client/chunk-TEEXDKKO.js",
-        "/conuhacks/client/favicon.ico",
-        "/conuhacks/client/index.html",
-        "/conuhacks/client/main-NJX2FASM.js",
-        "/conuhacks/client/manifest.webmanifest",
-        "/conuhacks/client/opencv.js",
-        "/conuhacks/client/polyfills-FFHMD2TL.js",
-        "/conuhacks/client/styles-CXQUZ3PB.css"
+        "/chunk-247VMTNP.js",
+        "/chunk-TEEXDKKO.js",
+        "/favicon.ico",
+        "/index.html",
+        "/main-NJX2FASM.js",
+        "/manifest.webmanifest",
+        "/opencv.js",
+        "/polyfills-FFHMD2TL.js",
+        "/styles-CXQUZ3PB.css"
       ],
       "patterns": []
     },
@@ -31,37 +31,37 @@
         "ignoreVary": true
       },
       "urls": [
-        "/conuhacks/client/icons/icon-128x128.png",
-        "/conuhacks/client/icons/icon-144x144.png",
-        "/conuhacks/client/icons/icon-152x152.png",
-        "/conuhacks/client/icons/icon-192x192.png",
-        "/conuhacks/client/icons/icon-384x384.png",
-        "/conuhacks/client/icons/icon-512x512.png",
-        "/conuhacks/client/icons/icon-72x72.png",
-        "/conuhacks/client/icons/icon-96x96.png"
+        "/icons/icon-128x128.png",
+        "/icons/icon-144x144.png",
+        "/icons/icon-152x152.png",
+        "/icons/icon-192x192.png",
+        "/icons/icon-384x384.png",
+        "/icons/icon-512x512.png",
+        "/icons/icon-72x72.png",
+        "/icons/icon-96x96.png"
       ],
       "patterns": []
     }
   ],
   "dataGroups": [],
   "hashTable": {
-    "/conuhacks/client/chunk-247VMTNP.js": "7243cba82eb5188f7c394ac54e27302c0992691c",
-    "/conuhacks/client/chunk-TEEXDKKO.js": "3f8ca9183a732f9c3ab33a54d95aceb6d1453a3f",
-    "/conuhacks/client/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
-    "/conuhacks/client/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
-    "/conuhacks/client/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
-    "/conuhacks/client/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
-    "/conuhacks/client/icons/icon-192x192.png": "15c4180454633880d98674aa7394656196c91584",
-    "/conuhacks/client/icons/icon-384x384.png": "94a915751ef6c9282df9aea405ad679230631814",
-    "/conuhacks/client/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
-    "/conuhacks/client/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
-    "/conuhacks/client/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
-    "/conuhacks/client/index.html": "2e4dad7a749c30260312ae1a7dfdbadefa45c386",
-    "/conuhacks/client/main-NJX2FASM.js": "5cb98f0ffbb358baa2c715d8c9285564deedf20a",
-    "/conuhacks/client/manifest.webmanifest": "9d9e5001243d435812179b71c6eeb37b1f5c9b9e",
-    "/conuhacks/client/opencv.js": "d7cd0baabff76c85049aa68260c8726e52820416",
-    "/conuhacks/client/polyfills-FFHMD2TL.js": "f49b49a155bc7d192db62a4c15d0a612b460a667",
-    "/conuhacks/client/styles-CXQUZ3PB.css": "229ff5309854b28661e28ea5917c9754cc407321"
+    "/chunk-247VMTNP.js": "7243cba82eb5188f7c394ac54e27302c0992691c",
+    "/chunk-TEEXDKKO.js": "3f8ca9183a732f9c3ab33a54d95aceb6d1453a3f",
+    "/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
+    "/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
+    "/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
+    "/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
+    "/icons/icon-192x192.png": "15c4180454633880d98674aa7394656196c91584",
+    "/icons/icon-384x384.png": "94a915751ef6c9282df9aea405ad679230631814",
+    "/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
+    "/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
+    "/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
+    "/index.html": "ab5463fa8f8d21f4ed540711617b86c8a0bb332c",
+    "/main-NJX2FASM.js": "5cb98f0ffbb358baa2c715d8c9285564deedf20a",
+    "/manifest.webmanifest": "9d9e5001243d435812179b71c6eeb37b1f5c9b9e",
+    "/opencv.js": "d7cd0baabff76c85049aa68260c8726e52820416",
+    "/polyfills-FFHMD2TL.js": "f49b49a155bc7d192db62a4c15d0a612b460a667",
+    "/styles-CXQUZ3PB.css": "229ff5309854b28661e28ea5917c9754cc407321"
   },
   "navigationUrls": [
     {
